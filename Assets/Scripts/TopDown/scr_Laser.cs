@@ -7,7 +7,7 @@ public class scr_Laser : MonoBehaviour
 {
 
     public float Direction;
-    float speed = 100;
+    float speed = 500;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
@@ -47,6 +47,26 @@ public class scr_Laser : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(0, 0, 90);
             transform.position += moveBottom * speed * Time.deltaTime;
+        }
+        if (Direction == 5)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 135);
+            transform.position += moveTop + moveLeft * speed * Time.deltaTime;
+        }
+        if (Direction == 6)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 45);
+            transform.position += moveBottom + moveLeft * speed * Time.deltaTime;
+        }
+        if (Direction == 7)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, -135);
+            transform.position += moveTop + moveRight * speed * Time.deltaTime;
+        }
+        if (Direction == 8)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, -45);
+            transform.position += moveBottom + moveRight * speed * Time.deltaTime;
         }
 
 
