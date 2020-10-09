@@ -9,6 +9,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float MoveSpeed = 20F;
     public float JumpSpeed = 10f;
+    public int ShootDirection;
     bool Jumping = false;
     float direction;
 
@@ -37,6 +38,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     //Methods for Player Shoot
     void Shoot()
     {
+        Bullet.GetComponent<scr_JNRBullet>().Direction = ShootDirection;
         Instantiate(Bullet, Player.transform);
     }
 
@@ -67,6 +69,8 @@ public class scr_JNRPlayerMovement : MonoBehaviour
 
 
         //Player Shoot
-        if (Input.GetAxisRaw("Fire1") != 0) Shoot();
+        if (direction > 0) ShootDirection = 1;
+        else if (direction < 0) ShootDirection = 2;
+            if (Input.GetAxisRaw("Fire1") != 0) Shoot();
     }
 }

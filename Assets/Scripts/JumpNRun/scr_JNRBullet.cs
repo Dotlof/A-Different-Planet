@@ -9,8 +9,6 @@ public class scr_JNRBullet : MonoBehaviour
     float speed = 100;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
-    Vector3 moveTop = new Vector3(0, 1, 0);
-    Vector3 moveBottom = new Vector3(0, -1, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +28,6 @@ public class scr_JNRBullet : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += moveLeft * speed * Time.deltaTime;
-        }
-        if (Direction == 3)
-        {
-            transform.localRotation = Quaternion.Euler(0, 0, -90);
-            transform.position += moveTop * speed * Time.deltaTime;
-        }
-        if (Direction == 4)
-        {
-            transform.localRotation = Quaternion.Euler(0, 0, 90);
-            transform.position += moveBottom * speed * Time.deltaTime;
         }
 
     }
