@@ -38,5 +38,13 @@ public class scr_JNRBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag != "Player")
+        {
+            Destroy(gameObject);
+        }
     }
+
+}
 

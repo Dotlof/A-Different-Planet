@@ -7,10 +7,13 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     public GameObject Bullet;
     public GameObject Player;
     public Rigidbody2D rb;
-    public float MoveSpeed = 20F;
-    public float JumpSpeed = 10f;
+    public float MoveSpeed = 10F;
+    public float RunningSpeed = 20F;
+    public float JumpSpeed = 30F;
     public int ShootDirection;
+    bool Shooting = false;
     bool Jumping = false;
+    bool OnCoolDown = false;
     float direction;
 
 
@@ -26,13 +29,14 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if(Jumping == false)
         {
             Jumping = true;
-            rb.velocity = Vector2.up * JumpSpeed;
+            rb.velocity = new Vector2(rb.velocity.x, JumpSpeed);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground") Jumping = false;   
+        if (collision.gameObject.tag == "Ground") Jumping = false;
+        Debug.Log("Bonk");
     }
 
     //Methods for Player Shoot
@@ -40,6 +44,17 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     {
         Bullet.GetComponent<scr_JNRBullet>().Direction = ShootDirection;
         Instantiate(Bullet, Player.transform);
+        Shooting = false;
+    }
+
+    IEnumerator Cooldown()
+    {
+        Shooting = true;
+        //Cooldown for the Shooting
+        OnCoolDown = true;
+        yield return new WaitForSeconds(0.25f);
+        Shoot();
+        OnCoolDown = false;
     }
 
     // Update is called once per frame
@@ -55,10 +70,27 @@ public class scr_JNRPlayerMovement : MonoBehaviour
 
 
         //Player Movement in X Direction
-        if(Input.GetAxisRaw("Horizontal") != 0)
+        if (Input.GetAxisRaw("Horizontal") != 0)
         {
-            Player.transform.position += new Vector3(Input.GetAxisRaw("Horizontal") *MoveSpeed * Time.deltaTime, 0, 0); 
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                if (Shooting == false) rb.velocity = new Vector2(RunningSpeed, rb.velocity.y);
+                else rb.velocity = new Vector2(MoveSpeed, rb.velocity.y);
+            }
+
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                if (Shooting == false) rb.velocity = new Vector2(-RunningSpeed, rb.velocity.y);
+                else rb.velocity = new Vector2(-MoveSpeed, rb.velocity.y);
+            }
+            
+            //SpeedrunVersion
+            //if(Shooting == true) Player.transform.position += new Vector3(Input.GetAxisRaw("Horizontal") *MoveSpeed * Time.deltaTime, 0, 0); 
+            //else Player.transform.position += new Vector3(Input.GetAxisRaw("Horizontal") * RunningSpeed * Time.deltaTime, 0, 0);
+
         }
+
+        else rb.velocity = new Vector2(0, rb.velocity.y);
 
         //Player Jump
         if (Input.GetAxisRaw("Jump") != 0) {
@@ -71,6 +103,9 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         //Player Shoot
         if (direction > 0) ShootDirection = 1;
         else if (direction < 0) ShootDirection = 2;
-            if (Input.GetAxisRaw("Fire1") != 0) Shoot();
+        if (Input.GetAxisRaw("Fire1") != 0)
+        {
+            if(OnCoolDown == false) StartCoroutine(Cooldown());
+        }
     }
 }
