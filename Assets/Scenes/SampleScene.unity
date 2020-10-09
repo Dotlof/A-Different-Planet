@@ -216,6 +216,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship
       objectReference: {fileID: 0}
+    - target: {fileID: 1179113276627128635, guid: 378e0ca22814e24499cfb5b0f9477b16,
+        type: 3}
+      propertyPath: Projectile
+      value: 
+      objectReference: {fileID: 4230830440567319151, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
     - target: {fileID: 1179113276627128639, guid: 378e0ca22814e24499cfb5b0f9477b16,
         type: 3}
       propertyPath: m_LocalPosition.x

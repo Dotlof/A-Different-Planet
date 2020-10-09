@@ -6,15 +6,29 @@ public class scr_Starship : MonoBehaviour
 {
     public void Shoot()
     {
-        Projectile.GetComponent<scr_Laser>().Direction = Direction;
-        Instantiate(Projectile, this.transform.position, Quaternion.identity);
+
+        if (Input.GetAxisRaw("HorizontalShoot") != 0 || Input.GetAxisRaw("VerticalShoot") != 0) 
+        {
+            Debug.Log("lool");
+            StartCoroutine(AutoShoot());
+        }
     }
+
+    
 
 
     Vector3 movement;
     public float MovementSpeed = 2;
     public int Direction;
     public GameObject Projectile;
+
+    IEnumerator AutoShoot()
+    {
+        Projectile.GetComponent<scr_Laser>().Direction = Direction;
+        Instantiate(Projectile, this.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.2f);
+        Shoot();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +82,9 @@ public class scr_Starship : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Shoot();
+            StartCoroutine(AutoShoot());
         }
+
+
     }
 }
