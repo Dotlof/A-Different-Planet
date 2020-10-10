@@ -6,8 +6,16 @@ using UnityEngine;
 public class scr_Laser : MonoBehaviour
 {
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public float Direction;
-    float speed = 500;
+    float speed = 800;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
