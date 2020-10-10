@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class scr_Starship : MonoBehaviour
 {
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ( collision.gameObject.tag == "Enemy")
+        {
+            health--;
+            Debug.Log("skrr");
+        }
+    }
+
     IEnumerator AutoShoot()
     {
         spamSchutz = false;
@@ -18,33 +28,41 @@ public class scr_Starship : MonoBehaviour
 
     Vector3 movement;
     public float MovementSpeed = 2;
+    public float FakeSpeed;
     public int Direction;
+    public int health = 3;
     public GameObject Projectile;
     bool spamSchutz = true;
     int Drehung;
 
-    /*IEnumerator AutoShoot()
-    {
-        Projectile.GetComponent<scr_Laser>().Direction = Direction;
-        Instantiate(Projectile, this.transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.2f);
-        Shoot();
-    */
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * MovementSpeed;
 
-        movement.y = Input.GetAxisRaw("Vertical");
-        transform.position += new Vector3(0, movement.y, 0) * Time.deltaTime * MovementSpeed;
+        FakeSpeed = MovementSpeed / Mathf.Sqrt(2);
+
+        if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") != 0) || (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") == 0))
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * MovementSpeed;
+
+            movement.y = Input.GetAxisRaw("Vertical");
+            transform.position += new Vector3(0, movement.y, 0) * Time.deltaTime * MovementSpeed;
+        }
+        else if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * FakeSpeed;
+
+            movement.y = Input.GetAxisRaw("Vertical");
+            transform.position += new Vector3(0, movement.y, 0) * Time.deltaTime * FakeSpeed;
+        }
 
 
         if ((Input.GetAxisRaw("Horizontal") <= 0 && Input.GetAxisRaw("Vertical") >= 0) && Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
@@ -167,7 +185,12 @@ public class scr_Starship : MonoBehaviour
             StartCoroutine(AutoShoot());
 
         }
-        Debug.Log(Drehung);
+        //Debug.Log(Drehung);
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
 
     }
 }
