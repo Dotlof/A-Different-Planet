@@ -14,13 +14,14 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     bool Shooting = false;
     bool Jumping = false;
     bool OnCoolDown = false;
+    bool WallJumping = false;
     float direction;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ShootDirection = 1;
     }
 
     //Methods for PlayerJump
@@ -31,12 +32,28 @@ public class scr_JNRPlayerMovement : MonoBehaviour
             Jumping = true;
             rb.velocity = new Vector2(rb.velocity.x, JumpSpeed);
         }
+
+        if((rb.velocity.x != 0 && rb.velocity.y == 0) && Jumping == true)
+        {
+            StartCoroutine(WallJump());
+        }
+
+    }
+
+    IEnumerator WallJump()
+    {
+        WallJumping = true;
+        Debug.Log(rb.velocity);
+        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + JumpSpeed);
+        yield return new WaitForSeconds(0.1f);
+        WallJumping = false;
+        
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground") Jumping = false;
-        Debug.Log("Bonk");
+        if (collision.gameObject.tag == "Ground") { Jumping = false; WallJumping = false; }
+        //else if (collision.gameObject.tag == "Ground" && collision.gameObject.transform.position.y > gameObject.transform.position.y) { WallJumping = true; Jumping = true; }
     }
 
     //Methods for Player Shoot
@@ -60,6 +77,8 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Logs
+
         //Player Viewing Direction
         direction = Input.GetAxisRaw("Horizontal");
         if(direction > 0)
@@ -70,7 +89,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
 
 
         //Player Movement in X Direction
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        if (Input.GetAxisRaw("Horizontal") != 0 && WallJumping == false)
         {
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
@@ -93,6 +112,8 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         else rb.velocity = new Vector2(0, rb.velocity.y);
 
         //Player Jump
+        if (rb.velocity.y < 0) Jumping = true;
+
         if (Input.GetAxisRaw("Jump") != 0) {
 
             Jump(); 

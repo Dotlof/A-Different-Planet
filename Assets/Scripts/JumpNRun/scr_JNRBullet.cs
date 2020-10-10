@@ -6,7 +6,7 @@ public class scr_JNRBullet : MonoBehaviour
 {
 
     public float Direction;
-    float speed = 100;
+    float speed = 6400f;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
 
