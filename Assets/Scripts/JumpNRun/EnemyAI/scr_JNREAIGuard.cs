@@ -5,7 +5,7 @@ using UnityEngine;
 public class scr_JNREAIGuard : MonoBehaviour
 {
     int HP = 10;
-    float MoveSpeed = 10F;
+    float MoveSpeed = 640F;
     public GameObject This;
     public GameObject checkpoint1;
     public GameObject checkpoint2;
