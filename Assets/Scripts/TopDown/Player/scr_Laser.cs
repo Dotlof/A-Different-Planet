@@ -15,7 +15,7 @@ public class scr_Laser : MonoBehaviour
     }
 
     public float Direction;
-    float speed = 800;
+    float speed = 1000;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
@@ -23,7 +23,7 @@ public class scr_Laser : MonoBehaviour
 
     IEnumerator kill()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 
