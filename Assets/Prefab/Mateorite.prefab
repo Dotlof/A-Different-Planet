@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2105948811161992524}
   m_Layer: 0
   m_Name: Mateorite
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 294599849c2e17d468439478b8a37bd4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d2d6c3341902a4498ed533242554abf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 64, y: 64}
+  m_Size: {x: 128, y: 128}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -115,21 +115,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 2.408146, y: 0.20069122}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 64, y: 64}
-    newSize: {x: 64, y: 64}
+    oldSize: {x: 128, y: 128}
+    newSize: {x: 128, y: 128}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 64, y: 64}
+  m_Size: {x: 96.91267, y: 99.72209}
   m_EdgeRadius: 0
 --- !u!114 &2105948811161992524
 MonoBehaviour:
@@ -143,3 +143,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6640ba673bd183f46ba333d40049a9cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2105948811161992527}
+  Meteor1: {fileID: 21300000, guid: 7d2d6c3341902a4498ed533242554abf, type: 3}
+  Meteor1_1: {fileID: 21300000, guid: bed62a89ce7baa54993d8fe469a79280, type: 3}
+  Meteor1_2: {fileID: 21300000, guid: 10445d4236e950d45bde56396d407ba2, type: 3}
+  Meteor2: {fileID: 21300000, guid: 7e3deed633ba0d3439f7ec7121b8686a, type: 3}
+  Meteor2_1: {fileID: 21300000, guid: 18badd80e1250e84babb401b2eba0db4, type: 3}
+  Meteor2_2: {fileID: 21300000, guid: 1c5d759c4a232b540aabc817ec0871e0, type: 3}
+  Meteor3: {fileID: 21300000, guid: d45370f3d003e2747b611500f85eea32, type: 3}
+  Meteor4: {fileID: 21300000, guid: 7c0fa50e6cbf2574780d534c0dc8e707, type: 3}
+  Meteor5: {fileID: 21300000, guid: b923206ce49945a4bb230ab7c347ae60, type: 3}
+  dist: 0
+  Starship: {fileID: 2843199718891204892, guid: 728d4c0610cf3e24d91419b1da255e28,
+    type: 3}

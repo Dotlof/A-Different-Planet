@@ -13,6 +13,11 @@ public class scr_small_enemy : MonoBehaviour
             Debug.Log("hit");
             StartCoroutine(Damageanim());
         }
+        if (other.gameObject.tag == "Player")
+        {
+            health = 0;
+            StartCoroutine(Damageanim());
+        }
 
     }
 
@@ -40,7 +45,7 @@ public class scr_small_enemy : MonoBehaviour
     IEnumerator Damageanim()
     {
         animator.SetBool("Dmg", true);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
         animator.SetBool("Dmg", false);
         if (health <= 0)
         {
@@ -60,6 +65,14 @@ public class scr_small_enemy : MonoBehaviour
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
     }
 
+    IEnumerator spawn()
+    {
+        kill = true;
+        yield return new WaitForSeconds(3f);
+        kill = false;
+
+    }
+
     public GameObject Gun1;
     public GameObject Gun2;
     public GameObject projectile;
@@ -69,9 +82,8 @@ public class scr_small_enemy : MonoBehaviour
     private Vector2 movement;
     float moveSpeed = 200f;
     Animator animator;
-    float distanceX;
-    float distanceY;
     bool cooldown = true;
+    bool kill = false;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +91,7 @@ public class scr_small_enemy : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        StartCoroutine(spawn());
     }
 
     // Update is called once per frame
@@ -101,11 +114,18 @@ public class scr_small_enemy : MonoBehaviour
 
         if (dist <= 1000)
         {
-            moveSpeed = 500;
+            moveSpeed = 300;
         }
         else
         {
             moveSpeed = 0;
+        }
+
+
+        if (dist <= 1000 && kill == true)
+        {
+            Destroy(gameObject);
+            Debug.Log("kill");
         }
     }
 

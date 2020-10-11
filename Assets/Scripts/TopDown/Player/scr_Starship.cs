@@ -7,10 +7,16 @@ public class scr_Starship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ( collision.gameObject.tag == "Enemy")
+        if ( collision.gameObject.tag == "Enemy" && invincebility == false)
         {
             health--;
             Debug.Log("skrr");
+            if (health != 0)
+            {
+                transform.position = new Vector3(0, 0, 0);
+                StartCoroutine(respawn());
+            }
+
         }
     }
 
@@ -23,6 +29,33 @@ public class scr_Starship : MonoBehaviour
         spamSchutz = true;
     }
 
+    IEnumerator respawn()
+    {
+        invincebility = true;
+        for (int wait = 0; wait <= 12; wait++)
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.125f);
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(0.125f);
+        }
+        invincebility = false;
+    }
+
+    IEnumerator spawn()
+    {
+        invincebility = true;
+        MovementSpeed = 0;
+        for (int wait = 0; wait <= 20; wait++)
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.125f);
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(0.125f);
+        }
+        invincebility = false;
+        MovementSpeed = 500;
+    }
     
 
 
@@ -32,13 +65,15 @@ public class scr_Starship : MonoBehaviour
     public int Direction;
     public int health = 3;
     public GameObject Projectile;
+    public GameObject Meteor;
     bool spamSchutz = true;
+    bool invincebility = false;
     int Drehung;
 
 
     void Start()
     {
-        
+        StartCoroutine(spawn());
     }
 
 
@@ -54,6 +89,7 @@ public class scr_Starship : MonoBehaviour
 
             movement.y = Input.GetAxisRaw("Vertical");
             transform.position += new Vector3(0, movement.y, 0) * Time.deltaTime * MovementSpeed;
+
         }
         else if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
         {
@@ -62,7 +98,9 @@ public class scr_Starship : MonoBehaviour
 
             movement.y = Input.GetAxisRaw("Vertical");
             transform.position += new Vector3(0, movement.y, 0) * Time.deltaTime * FakeSpeed;
+
         }
+
 
 
         if ((Input.GetAxisRaw("Horizontal") <= 0 && Input.GetAxisRaw("Vertical") >= 0) && Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
@@ -185,7 +223,7 @@ public class scr_Starship : MonoBehaviour
             StartCoroutine(AutoShoot());
 
         }
-        //Debug.Log(Drehung);
+        //Debug.Log(kill);
 
         if (health <= 0)
         {
