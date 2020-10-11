@@ -64,6 +64,31 @@ public class scr_Meteorite : MonoBehaviour
         {
             spriteRenderer.sprite = Meteor2_2;
         }
+
+        if (health == 2 && RandomColor == 3)
+        {
+            spriteRenderer.sprite = Meteor3_1;
+        }
+        else if (health == 1 && RandomColor == 3)
+        {
+            spriteRenderer.sprite = Meteor3_2;
+        }
+        if (health == 2 && RandomColor == 4)
+        {
+            spriteRenderer.sprite = Meteor4_1;
+        }
+        else if (health == 1 && RandomColor == 4)
+        {
+            spriteRenderer.sprite = Meteor4_2;
+        }
+        if (health == 2 && RandomColor == 5)
+        {
+            spriteRenderer.sprite = Meteor5_1;
+        }
+        else if (health == 1 && RandomColor == 5)
+        {
+            spriteRenderer.sprite = Meteor5_2;
+        }
     }
 
     IEnumerator spawn()
@@ -82,8 +107,14 @@ public class scr_Meteorite : MonoBehaviour
     public Sprite Meteor2_1;
     public Sprite Meteor2_2;
     public Sprite Meteor3;
+    public Sprite Meteor3_1;
+    public Sprite Meteor3_2;
     public Sprite Meteor4;
+    public Sprite Meteor4_1;
+    public Sprite Meteor4_2;
     public Sprite Meteor5;
+    public Sprite Meteor5_1;
+    public Sprite Meteor5_2;
     int RandomColor;
     int health = 3;
     float RandomDirX;
