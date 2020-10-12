@@ -11,6 +11,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     public float RunningSpeed = 20F;
     public float JumpSpeed = 30F;
     public int ShootDirection;
+    public int HP = 3;
     bool Shooting = false;
     bool Jumping = false;
     bool OnCoolDown = false;
@@ -43,7 +44,6 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     IEnumerator WallJump()
     {
         WallJumping = true;
-        Debug.Log(rb.velocity);
         rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + JumpSpeed);
         yield return new WaitForSeconds(0.1f);
         WallJumping = false;
