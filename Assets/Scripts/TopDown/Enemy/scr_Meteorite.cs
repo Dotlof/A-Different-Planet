@@ -166,15 +166,21 @@ public class scr_Meteorite : MonoBehaviour
         }
         crack();
 
-        detonation = Bomb.GetComponent<scr_bomb>().detonation;
-        bombDist = Vector3.Distance(Bomb.transform.position, transform.position);
-        if (bombDist <= 500 && detonation == true)
+
+        Bomb = GameObject.FindWithTag("Bombe");
+        if (Bomb != null)
         {
-            Destroy(gameObject);
+            detonation = Bomb.GetComponent<scr_bomb>().detonation;
+            bombDist = Vector3.Distance(Bomb.transform.position, transform.position);
+            if (bombDist <= 1000 && detonation == true)
+            {
+                Destroy(gameObject);
+            }
         }
+
         if (detonation == true)
         {
-            Debug.Log(detonation);
+            //Debug.Log(detonation);
         }
 
 

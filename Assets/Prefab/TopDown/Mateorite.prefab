@@ -163,4 +163,4 @@ MonoBehaviour:
   bombDist: 0
   Starship: {fileID: 2843199718891204892, guid: 728d4c0610cf3e24d91419b1da255e28,
     type: 3}
-  Bomb: {fileID: 977736216377515565, guid: b62d1f817d529774799d35141b96f871, type: 3}
+  Bomb: {fileID: 0}

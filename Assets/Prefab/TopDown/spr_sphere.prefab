@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 977736216377515566}
   - component: {fileID: 977736216377515567}
   - component: {fileID: 977736216377515564}
+  - component: {fileID: -733512802341428274}
   m_Layer: 0
   m_Name: spr_sphere
-  m_TagString: Untagged
+  m_TagString: Bombe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,8 +73,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 71026f31b03b8324f867705885efe637, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -4026699846629953773, guid: 226d88d08c5c6d546a6e2159615824b4,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,3 +136,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detonation: 0
+--- !u!95 &-733512802341428274
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977736216377515565}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41580705265e148489312709be63eaf8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

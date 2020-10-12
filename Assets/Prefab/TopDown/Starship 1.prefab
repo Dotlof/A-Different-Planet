@@ -151,6 +151,7 @@ MonoBehaviour:
   Projectile: {fileID: 4230830440567319151, guid: abbbd5690ebc714449b84680a0deca99,
     type: 3}
   Meteor: {fileID: 2105948811161992523, guid: 3eca9c12d4bc9144d8d9aaa21faed0da, type: 3}
+  Bombe: {fileID: 977736216377515565, guid: b62d1f817d529774799d35141b96f871, type: 3}
 --- !u!95 &-2210109261828049782
 Animator:
   serializedVersion: 3

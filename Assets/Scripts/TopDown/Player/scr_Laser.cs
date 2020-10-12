@@ -16,6 +16,8 @@ public class scr_Laser : MonoBehaviour
 
     public float Direction;
     float speed = 1000;
+    float duration = 1;
+    public bool strongLaser = false;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
@@ -23,7 +25,7 @@ public class scr_Laser : MonoBehaviour
 
     IEnumerator kill()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(duration);
         Destroy(gameObject);
     }
 
@@ -77,6 +79,15 @@ public class scr_Laser : MonoBehaviour
             transform.position += moveBottom + moveRight * speed * Time.deltaTime;
         }
 
-
+        if (strongLaser == true)
+        {
+            speed = 2000;
+            duration = 10;
+        }
+        else
+        {
+            speed = 1000;
+            duration = 1;
+        }
     }
 }

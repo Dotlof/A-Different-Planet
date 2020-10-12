@@ -6,7 +6,7 @@ public class scr_bomb : MonoBehaviour
 {
     IEnumerator explosion()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         detonation = true;
         yield return new WaitForSeconds(0.25f);
         Destroy(gameObject);
