@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7d2d6c3341902a4498ed533242554abf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -160,5 +160,7 @@ MonoBehaviour:
   Meteor5_1: {fileID: 21300000, guid: bb8a549ee5f6c1a4db13866c7de5a677, type: 3}
   Meteor5_2: {fileID: 21300000, guid: df8acf0f4edaf904a9d10bf0bb30e19d, type: 3}
   dist: 0
+  bombDist: 0
   Starship: {fileID: 2843199718891204892, guid: 728d4c0610cf3e24d91419b1da255e28,
     type: 3}
+  Bomb: {fileID: 977736216377515565, guid: b62d1f817d529774799d35141b96f871, type: 3}

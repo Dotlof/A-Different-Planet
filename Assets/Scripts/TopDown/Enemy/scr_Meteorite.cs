@@ -122,9 +122,12 @@ public class scr_Meteorite : MonoBehaviour
     float Speed;
     float RotZ;
     public float dist;
+    public float bombDist;
+    bool detonation = false;
     bool kill = false;
     Vector3 movement;
     public GameObject Starship;
+    public GameObject Bomb;
 
     // Start is called before the first frame update
     void Start()
@@ -159,9 +162,21 @@ public class scr_Meteorite : MonoBehaviour
         if (dist <= 1000 && kill == true)
         {
             Destroy(gameObject);
-            Debug.Log("kill");
+
         }
         crack();
+
+        detonation = Bomb.GetComponent<scr_bomb>().detonation;
+        bombDist = Vector3.Distance(Bomb.transform.position, transform.position);
+        if (bombDist <= 500 && detonation == true)
+        {
+            Destroy(gameObject);
+        }
+        if (detonation == true)
+        {
+            Debug.Log(detonation);
+        }
+
 
     }
 }

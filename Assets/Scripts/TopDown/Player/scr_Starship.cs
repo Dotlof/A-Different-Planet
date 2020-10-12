@@ -56,6 +56,24 @@ public class scr_Starship : MonoBehaviour
         invincebility = false;
         MovementSpeed = 500;
     }
+
+    IEnumerator Abilitys()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && AbilityCooldown >= 10)
+        {
+            switch (ability)
+            {
+                case 1:
+                    MovementSpeed = 2000;
+                    invincebility = true;
+                    AbilityCooldown = 0;
+                    yield return new WaitForSeconds(1f);
+                    invincebility = false;
+                    MovementSpeed = 500;
+                    break;
+            }
+        }
+    }
     
 
 
@@ -69,6 +87,8 @@ public class scr_Starship : MonoBehaviour
     bool spamSchutz = true;
     bool invincebility = false;
     int Drehung;
+    int ability = 1;
+    float AbilityCooldown = 10;
 
 
     void Start()
@@ -223,12 +243,18 @@ public class scr_Starship : MonoBehaviour
             StartCoroutine(AutoShoot());
 
         }
-        //Debug.Log(kill);
+        //Debug.Log(AbilityCooldown);
 
         if (health <= 0)
         {
             Destroy(gameObject);
         }
 
+        StartCoroutine(Abilitys());
+
+        if (AbilityCooldown < 10)
+        {
+            AbilityCooldown += Time.deltaTime;
+        }
     }
 }
