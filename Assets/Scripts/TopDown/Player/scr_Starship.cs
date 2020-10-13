@@ -56,6 +56,42 @@ public class scr_Starship : MonoBehaviour
         invincebility = false;
         MovementSpeed = 500;
     }
+
+    IEnumerator Abilitys()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && AbilityCooldown >= 10)
+        {
+            switch (ability)
+            {
+                case 1:
+                    MovementSpeed = 2000;
+                    invincebility = true;
+                    AbilityCooldown = 0;
+                    yield return new WaitForSeconds(1f);
+                    invincebility = false;
+                    MovementSpeed = 500;
+                    break;
+                case 2:
+                    Instantiate(Bombe, this.transform.position, Quaternion.identity);
+                    AbilityCooldown = 0;
+                    break;
+                case 3:
+                    MovementSpeed = 0;
+                    invincebility = true;
+                    AbilityCooldown = 0;
+                    LaserTag.GetComponent<scr_Laser>().strongLaser = true;
+                    for (int i = 500; i > 0; i--)
+                    {
+                        Instantiate(Projectile, this.transform.position, Quaternion.identity);
+                        yield return new WaitForSeconds(0.025f);
+                    }
+                    LaserTag.GetComponent<scr_Laser>().strongLaser = false;
+                    MovementSpeed = 500;
+                    invincebility = false;
+                    break;
+            }
+        }
+    }
     
 
 
@@ -66,9 +102,13 @@ public class scr_Starship : MonoBehaviour
     public int health = 3;
     public GameObject Projectile;
     public GameObject Meteor;
+    public GameObject Bombe;
+    public GameObject LaserTag;
     bool spamSchutz = true;
     bool invincebility = false;
     int Drehung;
+    int ability = 1;
+    float AbilityCooldown = 10;
 
 
     void Start()
@@ -79,6 +119,7 @@ public class scr_Starship : MonoBehaviour
 
     void Update()
     {
+        LaserTag = GameObject.FindWithTag("Laser");
 
         FakeSpeed = MovementSpeed / Mathf.Sqrt(2);
 
@@ -223,12 +264,31 @@ public class scr_Starship : MonoBehaviour
             StartCoroutine(AutoShoot());
 
         }
-        //Debug.Log(kill);
+        Debug.Log(AbilityCooldown);
 
         if (health <= 0)
         {
             Destroy(gameObject);
         }
 
+        StartCoroutine(Abilitys());
+
+        if (AbilityCooldown < 10)
+        {
+            AbilityCooldown += Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (ability == 3)
+            {
+                ability = 1;
+            }
+            else
+            {
+                ability++;
+            }
+        }
+        Debug.Log(ability);
     }
 }

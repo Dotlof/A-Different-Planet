@@ -9,6 +9,7 @@ TagManager:
   - Laser
   - Enemy
   - Wall
+  - Bombe
   layers:
   - Default
   - TransparentFX

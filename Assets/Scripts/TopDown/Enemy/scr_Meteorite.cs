@@ -64,6 +64,31 @@ public class scr_Meteorite : MonoBehaviour
         {
             spriteRenderer.sprite = Meteor2_2;
         }
+
+        if (health == 2 && RandomColor == 3)
+        {
+            spriteRenderer.sprite = Meteor3_1;
+        }
+        else if (health == 1 && RandomColor == 3)
+        {
+            spriteRenderer.sprite = Meteor3_2;
+        }
+        if (health == 2 && RandomColor == 4)
+        {
+            spriteRenderer.sprite = Meteor4_1;
+        }
+        else if (health == 1 && RandomColor == 4)
+        {
+            spriteRenderer.sprite = Meteor4_2;
+        }
+        if (health == 2 && RandomColor == 5)
+        {
+            spriteRenderer.sprite = Meteor5_1;
+        }
+        else if (health == 1 && RandomColor == 5)
+        {
+            spriteRenderer.sprite = Meteor5_2;
+        }
     }
 
     IEnumerator spawn()
@@ -82,8 +107,14 @@ public class scr_Meteorite : MonoBehaviour
     public Sprite Meteor2_1;
     public Sprite Meteor2_2;
     public Sprite Meteor3;
+    public Sprite Meteor3_1;
+    public Sprite Meteor3_2;
     public Sprite Meteor4;
+    public Sprite Meteor4_1;
+    public Sprite Meteor4_2;
     public Sprite Meteor5;
+    public Sprite Meteor5_1;
+    public Sprite Meteor5_2;
     int RandomColor;
     int health = 3;
     float RandomDirX;
@@ -91,9 +122,12 @@ public class scr_Meteorite : MonoBehaviour
     float Speed;
     float RotZ;
     public float dist;
+    public float bombDist;
+    bool detonation = false;
     bool kill = false;
     Vector3 movement;
     public GameObject Starship;
+    public GameObject Bomb;
 
     // Start is called before the first frame update
     void Start()
@@ -128,9 +162,27 @@ public class scr_Meteorite : MonoBehaviour
         if (dist <= 1000 && kill == true)
         {
             Destroy(gameObject);
-            Debug.Log("kill");
+
         }
         crack();
+
+
+        Bomb = GameObject.FindWithTag("Bombe");
+        if (Bomb != null)
+        {
+            detonation = Bomb.GetComponent<scr_bomb>().detonation;
+            bombDist = Vector3.Distance(Bomb.transform.position, transform.position);
+            if (bombDist <= 1000 && detonation == true)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        if (detonation == true)
+        {
+            //Debug.Log(detonation);
+        }
+
 
     }
 }
