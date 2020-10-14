@@ -68,8 +68,9 @@ public class scr_Starship : MonoBehaviour
                     invincebility = true;
                     AbilityCooldown = 0;
                     yield return new WaitForSeconds(1f);
-                    invincebility = false;
                     MovementSpeed = 500;
+                    yield return new WaitForSeconds(0.5f);
+                    invincebility = false;
                     break;
                 case 2:
                     Instantiate(Bombe, this.transform.position, Quaternion.identity);
@@ -79,13 +80,13 @@ public class scr_Starship : MonoBehaviour
                     MovementSpeed = 0;
                     invincebility = true;
                     AbilityCooldown = 0;
-                    LaserTag.GetComponent<scr_Laser>().strongLaser = true;
-                    for (int i = 500; i > 0; i--)
+                    Strahl.GetComponent<scr_Strahl>().Dir = Drehung;
+                    for (int i = 200; i > 0; i--)
                     {
-                        Instantiate(Projectile, this.transform.position, Quaternion.identity);
-                        yield return new WaitForSeconds(0.025f);
+                        Instantiate(Strahl, this.transform.position, Quaternion.identity);
+                        yield return new WaitForSeconds(0.0000001f);
+                        Debug.Log("Instanciated");
                     }
-                    LaserTag.GetComponent<scr_Laser>().strongLaser = false;
                     MovementSpeed = 500;
                     invincebility = false;
                     break;
@@ -104,6 +105,7 @@ public class scr_Starship : MonoBehaviour
     public GameObject Meteor;
     public GameObject Bombe;
     public GameObject LaserTag;
+    public GameObject Strahl;
     bool spamSchutz = true;
     bool invincebility = false;
     int Drehung;

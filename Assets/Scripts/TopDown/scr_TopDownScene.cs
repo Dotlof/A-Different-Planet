@@ -24,7 +24,7 @@ public class scr_TopDownScene : MonoBehaviour
         randomX = Random.Range(-8000f, 8000f);
         randomY = Random.Range(-8000f, 8000f);
 
-        if (zahler <= 1000)
+        if (zahler <= 800)
         {
             Instantiate(Meteor, new Vector3(randomX, randomY, 0), Quaternion.identity);
             zahler++;

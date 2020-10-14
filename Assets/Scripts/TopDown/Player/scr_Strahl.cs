@@ -3,20 +3,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class scr_Laser : MonoBehaviour
+public class scr_Strahl : MonoBehaviour
 {
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public float Direction;
-    float speed = 1000;
-    float duration = 1;
+    public float Dir;
+    float speed = 2000;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
@@ -24,7 +14,7 @@ public class scr_Laser : MonoBehaviour
 
     IEnumerator kill()
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
 
@@ -37,42 +27,42 @@ public class scr_Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Direction == 1)
+        if (Dir == 1)
         {
             transform.localScale = new Vector3(-1, 1, 1);
             transform.position += moveRight * speed * Time.deltaTime;
         }
-        if (Direction == 2)
+        if (Dir == 2)
         {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += moveLeft * speed * Time.deltaTime;
         }
-        if (Direction == 3)
+        if (Dir == 3)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -90);
             transform.position += moveTop * speed * Time.deltaTime;
         }
-        if (Direction == 4)
+        if (Dir == 4)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 90);
             transform.position += moveBottom * speed * Time.deltaTime;
         }
-        if (Direction == 5)
+        if (Dir == 5)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 135);
             transform.position += moveTop + moveLeft * speed * Time.deltaTime;
         }
-        if (Direction == 6)
+        if (Dir == 6)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 45);
             transform.position += moveBottom + moveLeft * speed * Time.deltaTime;
         }
-        if (Direction == 7)
+        if (Dir == 7)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -135);
             transform.position += moveTop + moveRight * speed * Time.deltaTime;
         }
-        if (Direction == 8)
+        if (Dir == 8)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -45);
             transform.position += moveBottom + moveRight * speed * Time.deltaTime;

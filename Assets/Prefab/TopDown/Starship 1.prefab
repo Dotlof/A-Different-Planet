@@ -152,6 +152,8 @@ MonoBehaviour:
     type: 3}
   Meteor: {fileID: 2105948811161992523, guid: 3eca9c12d4bc9144d8d9aaa21faed0da, type: 3}
   Bombe: {fileID: 977736216377515565, guid: b62d1f817d529774799d35141b96f871, type: 3}
+  LaserTag: {fileID: 0}
+  Strahl: {fileID: 2867323087624319351, guid: 0b907d8bab106ba48bdad1aa24afdbca, type: 3}
 --- !u!95 &-2210109261828049782
 Animator:
   serializedVersion: 3

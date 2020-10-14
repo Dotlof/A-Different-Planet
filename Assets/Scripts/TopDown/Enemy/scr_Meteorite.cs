@@ -136,7 +136,7 @@ public class scr_Meteorite : MonoBehaviour
         RandomDirX = Random.Range(-1f, 1f);
         RandomDirY = Random.Range(-1f, 1f);
         RandomColor = Random.Range(1, 6);
-        Speed = Random.Range(100f, 600f);
+        Speed = Random.Range(100f, 450f);
         RandomFarbe();
         StartCoroutine(spawn());
 

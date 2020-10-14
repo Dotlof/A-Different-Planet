@@ -6,21 +6,21 @@ public class scr_Enemy_projectile : MonoBehaviour
 {
 
     public GameObject Enemy;
-    float Speed = 1500;
+    float Speed = 1000;
     Vector3 Pos;
     private Transform target;
 
-    /*IEnumerator zerstoren()
+    IEnumerator zerstoren()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
-    }*/
+    }
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Pos = target.position;
-        //StartCoroutine(zerstoren());
+        StartCoroutine(zerstoren());
     }
 
     // Update is called once per frame
