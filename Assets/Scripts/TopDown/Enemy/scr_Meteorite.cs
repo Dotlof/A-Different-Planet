@@ -14,6 +14,7 @@ public class scr_Meteorite : MonoBehaviour
         if (collision.gameObject.tag == "Laser")
         {
             health--;
+            audioData.Play(0);
         }
         if (collision.gameObject.tag == "Player")
         {
@@ -128,6 +129,7 @@ public class scr_Meteorite : MonoBehaviour
     Vector3 movement;
     public GameObject Starship;
     public GameObject Bomb;
+    AudioSource audioData;
 
     // Start is called before the first frame update
     void Start()
@@ -139,6 +141,7 @@ public class scr_Meteorite : MonoBehaviour
         Speed = Random.Range(100f, 450f);
         RandomFarbe();
         StartCoroutine(spawn());
+        audioData = GetComponent<AudioSource>();
 
     }
 

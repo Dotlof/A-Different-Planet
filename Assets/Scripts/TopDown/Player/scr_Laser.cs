@@ -21,6 +21,7 @@ public class scr_Laser : MonoBehaviour
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
     Vector3 moveBottom = new Vector3(0, -1, 0);
+    
 
     IEnumerator kill()
     {
@@ -32,6 +33,8 @@ public class scr_Laser : MonoBehaviour
     void Start()
     {
         StartCoroutine(kill());
+        
+        
     }
 
     // Update is called once per frame

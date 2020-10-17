@@ -4,6 +4,35 @@ using UnityEngine;
 
 public class scr_Target_Rocket : MonoBehaviour
 {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Laser")
+        {
+            StartCoroutine(Trigger());
+        }
+        if (collision.gameObject.tag == "Player")
+        {
+            StartCoroutine(Trigger());
+        }
+    }
+
+    IEnumerator Trigger()
+    {
+        moveSpeed = 0f;
+        animator.SetBool("Death", true);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(5f);
+        moveSpeed = 0f;
+        animator.SetBool("Death", true);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
     private void FixedUpdate()
     {
         moveCharacter(movement);
@@ -17,10 +46,13 @@ public class scr_Target_Rocket : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     float moveSpeed = 500f;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(death());
+        animator = GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody2D>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }

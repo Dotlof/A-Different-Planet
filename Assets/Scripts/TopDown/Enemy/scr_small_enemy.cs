@@ -51,7 +51,9 @@ public class scr_small_enemy : MonoBehaviour
         {
             moveSpeed = 0f;
             animator.SetBool("Explosion", true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
+            audioData.Play(0);
+            yield return new WaitForSeconds(0.8f);
             Destroy(gameObject);
         }
     }
@@ -82,6 +84,7 @@ public class scr_small_enemy : MonoBehaviour
     private Vector2 movement;
     float moveSpeed = 200f;
     Animator animator;
+    AudioSource audioData;
     bool cooldown = true;
     bool kill = false;
 
@@ -92,6 +95,7 @@ public class scr_small_enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         StartCoroutine(spawn());
+        audioData = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_Geschutz : MonoBehaviour
+public class scr_Rocket_Launcher : MonoBehaviour
 {
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Laser")
@@ -24,14 +23,11 @@ public class scr_Geschutz : MonoBehaviour
     IEnumerator shoot()
     {
         Instantiate(projectile, transform.position, transform.rotation);
-        yield return new WaitForSeconds(0.25f);
-        Instantiate(projectile, transform.position, transform.rotation);
-        yield return new WaitForSeconds(0.25f);
-        Instantiate(projectile, transform.position, transform.rotation);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f);
         StartCoroutine(shoot());
     }
 
+    float health = 15f;
     public SpriteRenderer spriteRenderer;
     public Sprite damage;
     public Sprite normal;
@@ -40,8 +36,6 @@ public class scr_Geschutz : MonoBehaviour
     public Transform Player;
     private Rigidbody2D rb;
     private Vector2 movement;
-    float health = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +52,7 @@ public class scr_Geschutz : MonoBehaviour
         rb.rotation = angle;
         direction.Normalize();
         movement = direction;
+
         if (health <= 0)
         {
             player.gameObject.GetComponent<scr_big_enemy>().destroyed--;

@@ -18,6 +18,16 @@ public class scr_Starship : MonoBehaviour
             }
 
         }
+        if (collision.gameObject.tag == "Wall")
+        {
+            health--;
+            Debug.Log("skrr");
+            if (health != 0)
+            {
+                transform.position = new Vector3(0, 0, 0);
+                StartCoroutine(respawn());
+            }
+        }
     }
 
     IEnumerator AutoShoot()
@@ -25,6 +35,7 @@ public class scr_Starship : MonoBehaviour
         spamSchutz = false;
         Projectile.GetComponent<scr_Laser>().Direction = Direction;
         Instantiate(Projectile, this.transform.position, Quaternion.identity);
+        audioData.Play(0);
         yield return new WaitForSeconds(0.2f);
         spamSchutz = true;
     }
@@ -59,7 +70,7 @@ public class scr_Starship : MonoBehaviour
 
     IEnumerator Abilitys()
     {
-        if (Input.GetKeyDown(KeyCode.E) && AbilityCooldown >= 10)
+        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 10)
         {
             switch (ability)
             {
@@ -110,12 +121,14 @@ public class scr_Starship : MonoBehaviour
     bool invincebility = false;
     int Drehung;
     int ability = 1;
-    float AbilityCooldown = 10;
+    float AbilityCooldown = 5;
+    AudioSource audioData;
 
 
     void Start()
     {
         StartCoroutine(spawn());
+        audioData = GetComponent<AudioSource>();
     }
 
 
@@ -266,7 +279,7 @@ public class scr_Starship : MonoBehaviour
             StartCoroutine(AutoShoot());
 
         }
-        Debug.Log(AbilityCooldown);
+        //Debug.Log(AbilityCooldown);
 
         if (health <= 0)
         {
@@ -291,6 +304,6 @@ public class scr_Starship : MonoBehaviour
                 ability++;
             }
         }
-        Debug.Log(ability);
+        //Debug.Log(ability);
     }
 }
