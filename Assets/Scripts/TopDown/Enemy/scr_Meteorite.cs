@@ -100,6 +100,13 @@ public class scr_Meteorite : MonoBehaviour
 
     }
 
+    IEnumerator bossTest()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gegner = GameObject.FindGameObjectsWithTag("mini_boss").Length;
+        StartCoroutine(bossTest());
+    }
+
     public SpriteRenderer spriteRenderer;
     public Sprite Meteor1;
     public Sprite Meteor1_1;
@@ -129,6 +136,7 @@ public class scr_Meteorite : MonoBehaviour
     Vector3 movement;
     public GameObject Starship;
     public GameObject Bomb;
+    int gegner = 4;
     AudioSource audioData;
 
     // Start is called before the first frame update
@@ -142,12 +150,13 @@ public class scr_Meteorite : MonoBehaviour
         RandomFarbe();
         StartCoroutine(spawn());
         audioData = GetComponent<AudioSource>();
-
+        StartCoroutine(bossTest());
     }
 
     // Update is called once per frame
     void Update()
     {
+
         movement.x = RandomDirX;
         transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * Speed;
 
@@ -186,6 +195,10 @@ public class scr_Meteorite : MonoBehaviour
             //Debug.Log(detonation);
         }
 
+        if (gegner == 0)
+        {
+            Destroy(gameObject);
+        }
 
     }
 }

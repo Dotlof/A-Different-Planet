@@ -39,6 +39,6 @@ public class scr_big_enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log(destroyed);
+        //Debug.Log(destroyed);
     }
 }

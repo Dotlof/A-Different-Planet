@@ -47,13 +47,18 @@ public class scr_small_enemy : MonoBehaviour
         animator.SetBool("Dmg", true);
         yield return new WaitForSeconds(0.2f);
         animator.SetBool("Dmg", false);
-        if (health <= 0)
+        if (health == 0)
         {
             moveSpeed = 0f;
             animator.SetBool("Explosion", true);
             yield return new WaitForSeconds(0.2f);
             audioData.Play(0);
             yield return new WaitForSeconds(0.8f);
+            if (Leben == 0)
+            {
+                Instantiate(UP, transform.position, Quaternion.Euler(0, 0, 0));
+            }
+            
             Destroy(gameObject);
         }
     }
@@ -67,6 +72,13 @@ public class scr_small_enemy : MonoBehaviour
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
     }
 
+    IEnumerator bossTest()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gegner = GameObject.FindGameObjectsWithTag("mini_boss").Length;
+        StartCoroutine(bossTest());
+    }
+
     IEnumerator spawn()
     {
         kill = true;
@@ -75,10 +87,13 @@ public class scr_small_enemy : MonoBehaviour
 
     }
 
+    public GameObject UP;
     public GameObject Gun1;
     public GameObject Gun2;
     public GameObject projectile;
+    int gegner = 4;
     int health = 5;
+    int Leben;
     public Transform Player;
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -96,11 +111,15 @@ public class scr_small_enemy : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         StartCoroutine(spawn());
         audioData = GetComponent<AudioSource>();
+        StartCoroutine(bossTest());
+
+        Leben = Random.Range(0, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Vector3 direction = Player.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
@@ -131,6 +150,12 @@ public class scr_small_enemy : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("kill");
         }
+
+        if (gegner == 0)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log(gegner + "Dab");
     }
 
 }

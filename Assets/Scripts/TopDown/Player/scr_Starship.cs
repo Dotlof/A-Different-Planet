@@ -13,7 +13,6 @@ public class scr_Starship : MonoBehaviour
             Debug.Log("skrr");
             if (health != 0)
             {
-                transform.position = new Vector3(0, 0, 0);
                 StartCoroutine(respawn());
             }
 
@@ -24,9 +23,15 @@ public class scr_Starship : MonoBehaviour
             Debug.Log("skrr");
             if (health != 0)
             {
-                transform.position = new Vector3(0, 0, 0);
                 StartCoroutine(respawn());
             }
+        }
+        if (collision.gameObject.tag == "1UP" && health < 3)
+        {
+            audioData.clip = OneUP;
+            audioData.Play();
+            health++;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -35,6 +40,7 @@ public class scr_Starship : MonoBehaviour
         spamSchutz = false;
         Projectile.GetComponent<scr_Laser>().Direction = Direction;
         Instantiate(Projectile, this.transform.position, Quaternion.identity);
+        audioData.clip = Laser;
         audioData.Play(0);
         yield return new WaitForSeconds(0.2f);
         spamSchutz = true;
@@ -70,7 +76,7 @@ public class scr_Starship : MonoBehaviour
 
     IEnumerator Abilitys()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 10)
+        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 6)
         {
             switch (ability)
             {
@@ -121,8 +127,10 @@ public class scr_Starship : MonoBehaviour
     bool invincebility = false;
     int Drehung;
     int ability = 1;
-    float AbilityCooldown = 5;
+    float AbilityCooldown = 0;
     AudioSource audioData;
+    public AudioClip Laser;
+    public AudioClip OneUP;
 
 
     void Start()
@@ -288,7 +296,7 @@ public class scr_Starship : MonoBehaviour
 
         StartCoroutine(Abilitys());
 
-        if (AbilityCooldown < 10)
+        if (AbilityCooldown < 6)
         {
             AbilityCooldown += Time.deltaTime;
         }

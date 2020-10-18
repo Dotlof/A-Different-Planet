@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6261dcdad8a5bbe4294286aea27624e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -155,6 +155,8 @@ MonoBehaviour:
   Bombe: {fileID: 977736216377515565, guid: b62d1f817d529774799d35141b96f871, type: 3}
   LaserTag: {fileID: 0}
   Strahl: {fileID: 2867323087624319351, guid: 0b907d8bab106ba48bdad1aa24afdbca, type: 3}
+  Laser: {fileID: 8300000, guid: abfd79293b3d931469e9ad0ac177e478, type: 3}
+  OneUP: {fileID: 8300000, guid: face3eb352b5f1b46a211a1e273e70a6, type: 3}
 --- !u!95 &-2210109261828049782
 Animator:
   serializedVersion: 3
@@ -184,7 +186,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5b4defd4efec07c41a8cd0b6221a434b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: abfd79293b3d931469e9ad0ac177e478, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

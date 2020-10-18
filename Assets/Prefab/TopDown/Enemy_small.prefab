@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75dc7e4462c37b04f80ada0480a00bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UP: {fileID: 812199314576668340, guid: 5978d7101c490b5459a72c5a7d962dae, type: 3}
   Gun1: {fileID: 1261919626759183205}
   Gun2: {fileID: 7976451028660608118}
   projectile: {fileID: 7746629051886031036, guid: 84e731eed7903b2499d7244ba0fd5a10,
@@ -242,7 +243,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8c15343a8f2eae54f90dd16ddccebff6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a668fe51befef1a41b179a2e88d780c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

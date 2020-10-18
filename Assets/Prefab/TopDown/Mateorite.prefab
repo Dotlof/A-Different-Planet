@@ -165,6 +165,8 @@ MonoBehaviour:
   Starship: {fileID: 2843199718891204892, guid: 728d4c0610cf3e24d91419b1da255e28,
     type: 3}
   Bomb: {fileID: 0}
+  Hintergrund: {fileID: 960910208325319660, guid: 86825133f5b63c646be164a0dc22cb61,
+    type: 3}
 --- !u!82 &8781697102172197305
 AudioSource:
   m_ObjectHideFlags: 0

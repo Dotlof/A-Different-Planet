@@ -6,7 +6,7 @@ public class scr_Enemy_projectile : MonoBehaviour
 {
 
     public GameObject Enemy;
-    float Speed = 1000;
+    float Speed = 800;
     Vector3 Pos;
     private Transform target;
 
