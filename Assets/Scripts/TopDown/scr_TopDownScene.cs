@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class scr_TopDownScene : MonoBehaviour
 {
+    public void ChangeScene (string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        Debug.Log("loading");
+    }
+
     IEnumerator bossTest()
     {
         yield return new WaitForSeconds(0.5f);

@@ -35,6 +35,13 @@ public class scr_Starship : MonoBehaviour
         }
     }
 
+    public void Continue()
+    {
+        GamePaused = false;
+        Time.timeScale = 1;
+    }
+
+
     IEnumerator AutoShoot()
     {
         spamSchutz = false;
@@ -123,11 +130,14 @@ public class scr_Starship : MonoBehaviour
     public GameObject Bombe;
     public GameObject LaserTag;
     public GameObject Strahl;
+    public SpriteRenderer spriteRenderer;
     bool spamSchutz = true;
     bool invincebility = false;
+    public bool GameEnd = false;
+    public bool GamePaused = false;
     int Drehung;
-    int ability = 1;
-    float AbilityCooldown = 0;
+    public int ability = 1;
+    public float AbilityCooldown = 0;
     AudioSource audioData;
     public AudioClip Laser;
     public AudioClip OneUP;
@@ -137,6 +147,7 @@ public class scr_Starship : MonoBehaviour
     {
         StartCoroutine(spawn());
         audioData = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -291,7 +302,9 @@ public class scr_Starship : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            GameEnd = true;
+            MovementSpeed = 0f;
+            spriteRenderer.enabled = false;
         }
 
         StartCoroutine(Abilitys());
@@ -310,6 +323,20 @@ public class scr_Starship : MonoBehaviour
             else
             {
                 ability++;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GamePaused == false)
+            {
+                GamePaused = true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                GamePaused = false;
+                Time.timeScale = 1;
             }
         }
         //Debug.Log(ability);

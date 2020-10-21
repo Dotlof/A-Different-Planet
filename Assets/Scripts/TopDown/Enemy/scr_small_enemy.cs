@@ -100,6 +100,8 @@ public class scr_small_enemy : MonoBehaviour
     float moveSpeed = 200f;
     Animator animator;
     AudioSource audioData;
+    public AudioClip aud_shoot;
+    public AudioClip aud_explode; 
     bool cooldown = true;
     bool kill = false;
 

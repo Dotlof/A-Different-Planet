@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class scr_Boss : MonoBehaviour
 {
+    IEnumerator zerstoren()
+    {
+        yield return new WaitForSeconds(0.5f);
+        geschutze = GameObject.FindGameObjectsWithTag("mini_boss").Length;
+        if (dead == false)
+        {
+            StartCoroutine(zerstoren());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     IEnumerator moving()
     {
         pos = 1;
@@ -47,6 +61,8 @@ public class scr_Boss : MonoBehaviour
     float RotZ;
     float step;
     int pos;
+    int geschutze;
+    bool dead = false;
     Vector3 rechts = new Vector3(5000, 0, 0);
     Vector3 links = new Vector3(-5000, 0, 0);
     Vector3 oben = new Vector3(0, 5000, 0);
@@ -79,6 +95,11 @@ public class scr_Boss : MonoBehaviour
         if (pos == 4)
         {
             transform.position = Vector2.MoveTowards(transform.position, rechts, step);
+        }
+
+        if (geschutze == 0)
+        {
+            dead = true;
         }
     }
 }

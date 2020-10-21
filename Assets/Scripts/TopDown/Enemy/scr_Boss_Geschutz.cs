@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class scr_Boss_Geschutz : MonoBehaviour
 {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Laser")
+        {
+            health--;
+        }
+    }
+
     IEnumerator shoot()
     {
         yield return new WaitForSeconds(0.5f);
@@ -20,6 +28,7 @@ public class scr_Boss_Geschutz : MonoBehaviour
     public GameObject Abstand;
     public GameObject projectile;
     int shot;
+    int health = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +43,11 @@ public class scr_Boss_Geschutz : MonoBehaviour
         if (shot == 1)
         {
             StartCoroutine(shoot());
+        }
+
+        if(health == 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
