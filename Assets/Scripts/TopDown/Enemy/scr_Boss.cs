@@ -8,12 +8,13 @@ public class scr_Boss : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         geschutze = GameObject.FindGameObjectsWithTag("mini_boss").Length;
-        if (dead == false)
+        if (geschutze != 0)
         {
             StartCoroutine(zerstoren());
         }
         else
         {
+            player.gameObject.GetComponent<scr_Starship>().GameWon = true;
             Destroy(gameObject);
         }
     }
@@ -55,6 +56,7 @@ public class scr_Boss : MonoBehaviour
         StartCoroutine(moving());
     }
 
+    public GameObject player;
     public int shoot = 0;
     float rotSpeed = 25f;
     float speed = 800f;
@@ -71,6 +73,8 @@ public class scr_Boss : MonoBehaviour
     void Start()
     {
         StartCoroutine(moving());
+        StartCoroutine(zerstoren());
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -101,5 +105,6 @@ public class scr_Boss : MonoBehaviour
         {
             dead = true;
         }
+        Debug.Log(geschutze + "=Geschutze");
     }
 }

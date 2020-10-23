@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_DeathScreen_UI : MonoBehaviour
+public class scr_Victory_UI : MonoBehaviour
 {
 
     public Canvas canvas;
-    public CanvasGroup canvasGroup;
     public GameObject player;
+    public CanvasGroup canvasGroup;
     float opacity;
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class scr_DeathScreen_UI : MonoBehaviour
     void Update()
     {
         canvasGroup.alpha = opacity;
-        if (player.gameObject.GetComponent<scr_Starship>().GameEnd == true)
+        if (player.gameObject.GetComponent<scr_Starship>().GameWon == true)
         {
             canvas.enabled = true;
         }
@@ -31,6 +31,5 @@ public class scr_DeathScreen_UI : MonoBehaviour
         {
             opacity += Time.deltaTime * 1;
         }
-
     }
 }

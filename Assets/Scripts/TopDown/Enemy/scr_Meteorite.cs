@@ -18,6 +18,12 @@ public class scr_Meteorite : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player")
         {
+            health = 0;
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "Bombe")
+        {
+            health = 0;
             Destroy(gameObject);
         }
     }
@@ -136,6 +142,7 @@ public class scr_Meteorite : MonoBehaviour
     Vector3 movement;
     public GameObject Starship;
     public GameObject Bomb;
+    public GameObject Score;
     int gegner = 4;
     AudioSource audioData;
 
@@ -151,6 +158,7 @@ public class scr_Meteorite : MonoBehaviour
         StartCoroutine(spawn());
         audioData = GetComponent<AudioSource>();
         StartCoroutine(bossTest());
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     // Update is called once per frame
@@ -168,6 +176,7 @@ public class scr_Meteorite : MonoBehaviour
 
         if (health <= 0)
         {
+            Score.gameObject.GetComponent<scr_Score>().score = Score.gameObject.GetComponent<scr_Score>().score + 25;
             Destroy(gameObject);
         }
 

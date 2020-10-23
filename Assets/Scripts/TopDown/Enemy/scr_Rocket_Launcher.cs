@@ -33,6 +33,7 @@ public class scr_Rocket_Launcher : MonoBehaviour
     public Sprite normal;
     public GameObject projectile;
     public GameObject player;
+    public GameObject Score;
     public Transform Player;
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -42,6 +43,7 @@ public class scr_Rocket_Launcher : MonoBehaviour
         StartCoroutine(shoot());
         rb = this.GetComponent<Rigidbody2D>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     // Update is called once per frame
@@ -56,6 +58,7 @@ public class scr_Rocket_Launcher : MonoBehaviour
         if (health <= 0)
         {
             player.gameObject.GetComponent<scr_big_enemy>().destroyed--;
+            Score.gameObject.GetComponent<scr_Score>().score = Score.gameObject.GetComponent<scr_Score>().score + 25;
             Destroy(gameObject);
         }
     }

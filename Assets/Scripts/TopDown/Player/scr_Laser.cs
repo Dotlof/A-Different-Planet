@@ -12,6 +12,10 @@ public class scr_Laser : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (collision.gameObject.tag == "Boss")
+        {
+            Destroy(gameObject);
+        }
     }
 
     public float Direction;

@@ -21,6 +21,7 @@ public class scr_Target_Rocket : MonoBehaviour
         moveSpeed = 0f;
         animator.SetBool("Death", true);
         yield return new WaitForSeconds(1f);
+        Score.gameObject.GetComponent<scr_Score>().score = Score.gameObject.GetComponent<scr_Score>().score + 10;
         Destroy(gameObject);
     }
 
@@ -47,6 +48,7 @@ public class scr_Target_Rocket : MonoBehaviour
     private Vector2 movement;
     float moveSpeed = 500f;
     Animator animator;
+    public GameObject Score;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,7 @@ public class scr_Target_Rocket : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody2D>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     // Update is called once per frame

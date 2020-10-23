@@ -8,8 +8,16 @@ public class scr_Boss_Geschutz : MonoBehaviour
     {
         if (collision.gameObject.tag == "Laser")
         {
-            health--;
+            StartCoroutine(dmg());
         }
+    }
+
+    IEnumerator dmg()
+    {
+        health--;
+        spriteRenderer.sprite = damage;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.sprite = normal;
     }
 
     IEnumerator shoot()
@@ -27,13 +35,18 @@ public class scr_Boss_Geschutz : MonoBehaviour
     public GameObject Boss;
     public GameObject Abstand;
     public GameObject projectile;
+    public GameObject Score;
+    public SpriteRenderer spriteRenderer;
+    public Sprite normal;
+    public Sprite damage;
     int shot;
-    int health = 10;
+    int health = 20;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     // Update is called once per frame
@@ -45,8 +58,9 @@ public class scr_Boss_Geschutz : MonoBehaviour
             StartCoroutine(shoot());
         }
 
-        if(health == 0)
+        if(health <= 0)
         {
+            Score.gameObject.GetComponent<scr_Score>().score = Score.gameObject.GetComponent<scr_Score>().score + 150;
             Destroy(gameObject);
         }
     }

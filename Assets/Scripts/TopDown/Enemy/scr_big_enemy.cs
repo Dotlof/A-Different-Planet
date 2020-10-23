@@ -10,6 +10,10 @@ public class scr_big_enemy : MonoBehaviour
         {
             health--;
             StartCoroutine(dmg());
+            if (health == 0)
+            {
+                Instantiate(UP, transform.position, Quaternion.Euler(0, 0, 0));
+            }
         }
     }
 
@@ -25,11 +29,14 @@ public class scr_big_enemy : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite damage;
     public Sprite normal;
+    public GameObject Score;
+    public GameObject UP;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     // Update is called once per frame
@@ -37,6 +44,7 @@ public class scr_big_enemy : MonoBehaviour
     {
         if (health <= 0)
         {
+            Score.gameObject.GetComponent<scr_Score>().score = Score.gameObject.GetComponent<scr_Score>().score + 250;
             Destroy(gameObject);
         }
         //Debug.Log(destroyed);

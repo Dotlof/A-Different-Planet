@@ -6,9 +6,7 @@ public class scr_bomb : MonoBehaviour
 {
     IEnumerator explosion()
     {
-        yield return new WaitForSeconds(3f);
-        detonation = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
 
@@ -17,6 +15,7 @@ public class scr_bomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.localScale = new Vector3(0.1f, 0.1f, 1);
         detonation = false;
         StartCoroutine(explosion());
     }
@@ -24,6 +23,7 @@ public class scr_bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.localScale += Time.deltaTime * new Vector3(6f,6f,0f);
         //Debug.Log(detonation);
     
     }

@@ -11,10 +11,14 @@ public class scr_Strahl : MonoBehaviour
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveTop = new Vector3(0, 1, 0);
     Vector3 moveBottom = new Vector3(0, -1, 0);
+    Vector3 moveTopRight = new Vector3(1, 1, 0);
+    Vector3 moveTopLeft = new Vector3(-1, 1, 0);
+    Vector3 moveBottomRight = new Vector3(1, -1, 0);
+    Vector3 moveBottomLeft = new Vector3(-1, -1, 0);
 
     IEnumerator kill()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 
@@ -50,22 +54,22 @@ public class scr_Strahl : MonoBehaviour
         if (Dir == 5)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 135);
-            transform.position += moveTop + moveLeft * speed * Time.deltaTime;
+            transform.position += moveTopLeft * speed * Time.deltaTime;
         }
         if (Dir == 6)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 45);
-            transform.position += moveBottom + moveLeft * speed * Time.deltaTime;
+            transform.position += moveBottomLeft * speed * Time.deltaTime;
         }
         if (Dir == 7)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -135);
-            transform.position += moveTop + moveRight * speed * Time.deltaTime;
+            transform.position += moveTopRight * speed * Time.deltaTime;
         }
         if (Dir == 8)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -45);
-            transform.position += moveBottom + moveRight * speed * Time.deltaTime;
+            transform.position += moveBottomRight * speed * Time.deltaTime;
         }
 
     }

@@ -7,11 +7,11 @@ public class scr_Starship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ( collision.gameObject.tag == "Enemy" && invincebility == false)
+        if ((collision.gameObject.tag == "Boss" || collision.gameObject.tag == "mini_boss" || collision.gameObject.tag == "Enemy") && invincebility == false)
         {
             health--;
-            Debug.Log("skrr");
-            if (health != 0)
+            //Debug.Log("skrr");
+            if (health != 0 && GameEnd == false)
             {
                 StartCoroutine(respawn());
             }
@@ -20,7 +20,7 @@ public class scr_Starship : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             health--;
-            Debug.Log("skrr");
+            //Debug.Log("skrr");
             if (health != 0)
             {
                 StartCoroutine(respawn());
@@ -83,7 +83,7 @@ public class scr_Starship : MonoBehaviour
 
     IEnumerator Abilitys()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 6)
+        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 6 && GameEnd == false && AbilityCooldown != 7)
         {
             switch (ability)
             {
@@ -101,18 +101,17 @@ public class scr_Starship : MonoBehaviour
                     AbilityCooldown = 0;
                     break;
                 case 3:
-                    MovementSpeed = 0;
-                    invincebility = true;
-                    AbilityCooldown = 0;
+                    MovementSpeed = 200;
+                    AbilityCooldown = 7;
                     Strahl.GetComponent<scr_Strahl>().Dir = Drehung;
-                    for (int i = 200; i > 0; i--)
+                    for (int i = 120; i > 0; i--)
                     {
                         Instantiate(Strahl, this.transform.position, Quaternion.identity);
                         yield return new WaitForSeconds(0.0000001f);
                         Debug.Log("Instanciated");
                     }
                     MovementSpeed = 500;
-                    invincebility = false;
+                    AbilityCooldown = 0;
                     break;
             }
         }
@@ -135,6 +134,7 @@ public class scr_Starship : MonoBehaviour
     bool invincebility = false;
     public bool GameEnd = false;
     public bool GamePaused = false;
+    public bool GameWon = false;
     int Drehung;
     public int ability = 1;
     public float AbilityCooldown = 0;
@@ -145,6 +145,7 @@ public class scr_Starship : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         StartCoroutine(spawn());
         audioData = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();

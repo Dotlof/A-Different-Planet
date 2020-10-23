@@ -149,6 +149,7 @@ MonoBehaviour:
   projectile: {fileID: 7746629051886031036, guid: 84e731eed7903b2499d7244ba0fd5a10,
     type: 3}
   player: {fileID: 7265270445713799540}
+  Score: {fileID: 0}
   Player: {fileID: 0}
 --- !u!1 &4083837032850787762
 GameObject:
@@ -299,6 +300,7 @@ MonoBehaviour:
   projectile: {fileID: 7746629051886031036, guid: 84e731eed7903b2499d7244ba0fd5a10,
     type: 3}
   player: {fileID: 7265270445713799540}
+  Score: {fileID: 0}
   Player: {fileID: 0}
 --- !u!1 &4682696102944394722
 GameObject:
@@ -449,6 +451,7 @@ MonoBehaviour:
   projectile: {fileID: 7746629051886031036, guid: 84e731eed7903b2499d7244ba0fd5a10,
     type: 3}
   player: {fileID: 7265270445713799540}
+  Score: {fileID: 0}
   Player: {fileID: 0}
 --- !u!1 &7265270445713799540
 GameObject:
@@ -573,7 +576,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.94976807, y: 18.243652}
+  m_Offset: {x: -1.7043762, y: 6.2118073}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -584,7 +587,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 419.2276, y: 606.52966}
+  m_Size: {x: 306.42627, y: 534.3363}
   m_EdgeRadius: 0
 --- !u!114 &4309191538401855621
 MonoBehaviour:
@@ -602,6 +605,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7265270445713799541}
   damage: {fileID: 21300000, guid: afddc500b1da04c44a41ace59a6a90fd, type: 3}
   normal: {fileID: 21300000, guid: f5dbdd852c580c540b84a75d621ea000, type: 3}
+  Score: {fileID: 0}
+  UP: {fileID: 812199314576668340, guid: 5978d7101c490b5459a72c5a7d962dae, type: 3}
 --- !u!1 &7928613067634678507
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +756,7 @@ MonoBehaviour:
   projectile: {fileID: 2396525061365593165, guid: 63909a2287536314b849294bec9a1caf,
     type: 3}
   player: {fileID: 7265270445713799540}
+  Score: {fileID: 0}
   Player: {fileID: 0}
 --- !u!1 &8591904702862678724
 GameObject:
@@ -901,4 +907,5 @@ MonoBehaviour:
   projectile: {fileID: 7746629051886031036, guid: 84e731eed7903b2499d7244ba0fd5a10,
     type: 3}
   player: {fileID: 7265270445713799540}
+  Score: {fileID: 0}
   Player: {fileID: 0}

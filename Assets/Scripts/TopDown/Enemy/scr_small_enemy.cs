@@ -18,7 +18,11 @@ public class scr_small_enemy : MonoBehaviour
             health = 0;
             StartCoroutine(Damageanim());
         }
-
+        if (other.gameObject.tag == "Bombe")
+        {
+            health = 0;
+            StartCoroutine(Damageanim());
+        }
     }
 
     IEnumerator Shoot()
@@ -58,7 +62,8 @@ public class scr_small_enemy : MonoBehaviour
             {
                 Instantiate(UP, transform.position, Quaternion.Euler(0, 0, 0));
             }
-            
+
+            Score.gameObject.GetComponent<scr_Score>().score = Score.gameObject.GetComponent<scr_Score>().score + 50;
             Destroy(gameObject);
         }
     }
@@ -91,6 +96,7 @@ public class scr_small_enemy : MonoBehaviour
     public GameObject Gun1;
     public GameObject Gun2;
     public GameObject projectile;
+    public GameObject Score;
     int gegner = 4;
     int health = 5;
     int Leben;
@@ -116,6 +122,7 @@ public class scr_small_enemy : MonoBehaviour
         StartCoroutine(bossTest());
 
         Leben = Random.Range(0, 10);
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     // Update is called once per frame

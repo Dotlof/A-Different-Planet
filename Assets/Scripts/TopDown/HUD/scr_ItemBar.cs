@@ -7,7 +7,7 @@ public class scr_ItemBar : MonoBehaviour
 {
 	IEnumerator Timer()
     {
-		yield return new WaitForSeconds(0.0521648408972353f);
+		yield return new WaitForSeconds(0.0521648408972353f * 0.835f);
 		if (index < sprites.Length)
         {
 			image.sprite = sprites[index];

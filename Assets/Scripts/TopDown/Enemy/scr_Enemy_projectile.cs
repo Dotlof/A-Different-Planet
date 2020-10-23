@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class scr_Enemy_projectile : MonoBehaviour
 {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Laser")
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public GameObject Enemy;
     float Speed = 800;

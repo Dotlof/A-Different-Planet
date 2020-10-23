@@ -20,6 +20,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4230830440567319149, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230830440567319149, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230830440567319149, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230830440567319149, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230830440567319149, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230830440567319149, guid: abbbd5690ebc714449b84680a0deca99,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4230830440567319151, guid: abbbd5690ebc714449b84680a0deca99,
         type: 3}
       propertyPath: m_Name
