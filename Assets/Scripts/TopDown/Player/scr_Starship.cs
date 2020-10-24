@@ -35,6 +35,14 @@ public class scr_Starship : MonoBehaviour
         }
     }
 
+    public void LoadVolume()
+    {
+        PlayerData data = SaveSystem.LoadVolume();
+
+        audioData.volume = data.sfx;
+
+    }
+
     public void Continue()
     {
         GamePaused = false;
@@ -47,8 +55,15 @@ public class scr_Starship : MonoBehaviour
         spamSchutz = false;
         Projectile.GetComponent<scr_Laser>().Direction = Direction;
         Instantiate(Projectile, this.transform.position, Quaternion.identity);
-        audioData.clip = Laser;
-        audioData.Play(0);
+        if (!audioData.isPlaying)
+        {
+            audioData.clip = Laser;
+        }
+        if (audioData.clip != OneUP)
+        {
+            audioData.clip = Laser;
+            audioData.Play(0);
+        }
         yield return new WaitForSeconds(0.2f);
         spamSchutz = true;
     }
@@ -83,7 +98,7 @@ public class scr_Starship : MonoBehaviour
 
     IEnumerator Abilitys()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 6 && GameEnd == false && AbilityCooldown != 7)
+        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 6 && GameEnd == false && AbilityCooldown != 7 && GameWon == false)
         {
             switch (ability)
             {
@@ -108,7 +123,7 @@ public class scr_Starship : MonoBehaviour
                     {
                         Instantiate(Strahl, this.transform.position, Quaternion.identity);
                         yield return new WaitForSeconds(0.0000001f);
-                        Debug.Log("Instanciated");
+                        //Debug.Log("Instanciated");
                     }
                     MovementSpeed = 500;
                     AbilityCooldown = 0;
@@ -149,6 +164,7 @@ public class scr_Starship : MonoBehaviour
         StartCoroutine(spawn());
         audioData = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        LoadVolume();
     }
 
 
@@ -340,6 +356,12 @@ public class scr_Starship : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
+
+        if (GameWon == true)
+        {
+            MovementSpeed = 0;
+        }
+        //Debug.Log(Application.persistentDataPath);
         //Debug.Log(ability);
     }
 }

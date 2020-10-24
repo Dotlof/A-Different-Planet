@@ -19,12 +19,10 @@ public class scr_Meteorite : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             health = 0;
-            Destroy(gameObject);
         }
         if (collision.gameObject.tag == "Bombe")
         {
             health = 0;
-            Destroy(gameObject);
         }
     }
 

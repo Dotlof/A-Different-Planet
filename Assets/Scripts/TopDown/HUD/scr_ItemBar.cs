@@ -50,6 +50,6 @@ public class scr_ItemBar : MonoBehaviour
 			if (destroyOnEnd) Destroy(gameObject);
 		}
 		//Debug.Log(player.gameObject.GetComponent<scr_Starship>().AbilityCooldown);
-		Debug.Log(index);
+		//Debug.Log(index);
 	}
 }

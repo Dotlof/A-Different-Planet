@@ -20,7 +20,7 @@ public class scr_TopDown_UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.gameObject.GetComponent<scr_Starship>().GameEnd == true)
+        if (player.gameObject.GetComponent<scr_Starship>().GameEnd == true || player.gameObject.GetComponent<scr_Starship>().GameWon == true)
         {
             canvas.enabled = false;
         }

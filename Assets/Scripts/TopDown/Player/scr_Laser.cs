@@ -19,7 +19,8 @@ public class scr_Laser : MonoBehaviour
     }
 
     public float Direction;
-    float speed = 1000;
+    float speed = 1200;
+    float fakeSpeed;
     float duration = 1;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
@@ -49,6 +50,8 @@ public class scr_Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fakeSpeed = speed / Mathf.Sqrt(2);
+
         if (Direction == 1)
         {
             transform.localScale = new Vector3(-1, 1, 1);
@@ -72,22 +75,22 @@ public class scr_Laser : MonoBehaviour
         if (Direction == 5)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 135);
-            transform.position += moveTopLeft * speed * Time.deltaTime;
+            transform.position += moveTopLeft * fakeSpeed * Time.deltaTime;
         }
         if (Direction == 6)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 45);
-            transform.position += moveBottomLeft * speed * Time.deltaTime;
+            transform.position += moveBottomLeft * fakeSpeed * Time.deltaTime;
         }
         if (Direction == 7)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -135);
-            transform.position += moveTopRight * speed * Time.deltaTime;
+            transform.position += moveTopRight * fakeSpeed * Time.deltaTime;
         }
         if (Direction == 8)
         {
             transform.localRotation = Quaternion.Euler(0, 0, -45);
-            transform.position += moveBottomRight * speed * Time.deltaTime;
+            transform.position += moveBottomRight * fakeSpeed * Time.deltaTime;
         }
 
     }

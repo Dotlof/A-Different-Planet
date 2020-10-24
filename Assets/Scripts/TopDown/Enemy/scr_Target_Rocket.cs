@@ -14,6 +14,10 @@ public class scr_Target_Rocket : MonoBehaviour
         {
             StartCoroutine(Trigger());
         }
+        if (collision.gameObject.tag == "Bombe")
+        {
+            StartCoroutine(Trigger());
+        }
     }
 
     IEnumerator Trigger()

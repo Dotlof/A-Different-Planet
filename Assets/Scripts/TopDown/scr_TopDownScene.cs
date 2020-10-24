@@ -7,8 +7,12 @@ public class scr_TopDownScene : MonoBehaviour
 {
     public void ChangeScene (string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
-        Debug.Log("loading");
+        if (player.gameObject.GetComponent<scr_Starship>().GamePaused == true || player.gameObject.GetComponent<scr_Starship>().GameEnd == true || player.gameObject.GetComponent<scr_Starship>().GameWon == true)
+        {
+            SceneManager.LoadScene(sceneName);
+            Debug.Log("loading");
+        }
+
     }
 
     IEnumerator bossTest()
@@ -29,6 +33,7 @@ public class scr_TopDownScene : MonoBehaviour
     public GameObject Meteor;
     public GameObject Enemys;
     public GameObject Boss;
+    public GameObject player;
 
     float randomX;
     float randomY;
@@ -41,12 +46,13 @@ public class scr_TopDownScene : MonoBehaviour
     void Start()
     {
         StartCoroutine(bossTest());
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
         randomX = Random.Range(-8000f, 8000f);
         randomY = Random.Range(-8000f, 8000f);
 
@@ -67,6 +73,6 @@ public class scr_TopDownScene : MonoBehaviour
             gegner--;
             
         }
-        Debug.Log(gegner + "lol");
+        //Debug.Log(gegner + "lol");
     }
 }

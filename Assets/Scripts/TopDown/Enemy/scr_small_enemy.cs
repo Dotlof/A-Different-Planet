@@ -92,6 +92,14 @@ public class scr_small_enemy : MonoBehaviour
 
     }
 
+    public void LoadVolume()
+    {
+        PlayerData data = SaveSystem.LoadVolume();
+
+        audioData.volume = data.sfx;
+
+    }
+
     public GameObject UP;
     public GameObject Gun1;
     public GameObject Gun2;
@@ -123,6 +131,7 @@ public class scr_small_enemy : MonoBehaviour
 
         Leben = Random.Range(0, 10);
         Score = GameObject.FindGameObjectWithTag("Score");
+        LoadVolume();
     }
 
     // Update is called once per frame
@@ -144,7 +153,7 @@ public class scr_small_enemy : MonoBehaviour
             cooldown = false;
         }
 
-        if (dist <= 1000)
+        if (dist <= 1210)
         {
             moveSpeed = 300;
         }
@@ -164,7 +173,7 @@ public class scr_small_enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log(gegner + "Dab");
+        //Debug.Log(gegner + "Dab");
     }
 
 }
