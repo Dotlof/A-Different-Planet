@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
 public class scr_Starship : MonoBehaviour
@@ -98,7 +99,7 @@ public class scr_Starship : MonoBehaviour
 
     IEnumerator Abilitys()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && AbilityCooldown >= 6 && GameEnd == false && AbilityCooldown != 7 && GameWon == false)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton5)) && AbilityCooldown >= 6 && GameEnd == false && AbilityCooldown != 7 && GameWon == false)
         {
             switch (ability)
             {
@@ -331,7 +332,7 @@ public class scr_Starship : MonoBehaviour
             AbilityCooldown += Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton4))
         {
             if (ability == 3)
             {
@@ -343,7 +344,7 @@ public class scr_Starship : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton9))
         {
             if (GamePaused == false)
             {

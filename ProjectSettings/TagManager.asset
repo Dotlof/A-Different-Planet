@@ -16,6 +16,8 @@ TagManager:
   - Boss
   - Score
   - var
+  - Collider
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

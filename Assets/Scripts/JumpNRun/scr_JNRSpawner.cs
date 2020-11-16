@@ -12,10 +12,10 @@ public class scr_JNRSpawner : MonoBehaviour
     {
         if (cd == false)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             if(Upsidedown == true)
             {
-                Instantiate(Fire, new Vector3(transform.position.x ,transform.position.y -98,0), new Quaternion(0, 180, 0, 0));
+                Instantiate(Fire, new Vector3(transform.position.x ,transform.position.y -98,0), transform.rotation = Quaternion.Euler(0,0,180) );
             }
             else Instantiate(Fire, new Vector3(transform.position.x, transform.position.y + 98, 0), Quaternion.identity);
             cd = true;

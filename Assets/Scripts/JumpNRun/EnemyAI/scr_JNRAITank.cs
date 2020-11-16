@@ -16,10 +16,12 @@ public class scr_JNRAITank : MonoBehaviour
         if (Direction == "Right")
         {
             This.transform.position += new Vector3(MoveSpeed * Time.deltaTime, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
         if (Direction == "Left")
         {
             This.transform.position -= new Vector3(MoveSpeed * Time.deltaTime, 0, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
 
         if (This.transform.position.x >= checkpoint2.transform.position.x)

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class scr_JNRFire : MonoBehaviour
 {
+    Animator animator;
 
     IEnumerator Fire()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
+        animator.SetBool("End", true);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 
@@ -15,6 +18,7 @@ public class scr_JNRFire : MonoBehaviour
     void Start()
     {
         StartCoroutine(Fire());
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
