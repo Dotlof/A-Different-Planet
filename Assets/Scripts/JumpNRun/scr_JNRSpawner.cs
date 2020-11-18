@@ -10,7 +10,7 @@ public class scr_JNRSpawner : MonoBehaviour
 
     IEnumerator Cooldown()
     {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(8f);
             if(Upsidedown == true)
             {
                 Instantiate(Fire, new Vector3(transform.position.x ,transform.position.y -98,0), transform.rotation = Quaternion.Euler(0,0,180) );
