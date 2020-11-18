@@ -17,7 +17,11 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     bool Jumping = false;
     bool OnCoolDown = false;
     bool WallJumping = false;
+    bool OnPlatform = false;
+    bool invinceble = false;
     float direction;
+
+    SpriteRenderer spriteRenderer;
 
     public float hight;
     public GameObject CamTrigger1;
@@ -26,6 +30,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         ShootDirection = 1;
     }
 
@@ -34,8 +39,16 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "MovingPlatform" && Jumping)
         {
-            //Jumping = false;
+            Jumping = false;
             transform.parent = collision.gameObject.transform;
+            OnPlatform = true;
+        }
+
+        if (collision.gameObject.tag == "Enemy" && invinceble == false)
+        {
+            HP--;
+            Debug.Log("Schaden");
+            StartCoroutine(getDmg());
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -43,7 +56,21 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "MovingPlatform")
         {
             transform.parent = null;
+            OnPlatform = false;
         }
+    }
+
+    IEnumerator getDmg()
+    {
+        invinceble = true;
+        for (int i = 0; i < 10; i++)
+        {
+            spriteRenderer.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+        invinceble = false;
     }
 
     //Methods for PlayerJump
@@ -99,7 +126,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     void Update()
     {
         //Logs
-        //Debug.Log(Triggered);
+        //Debug.Log(HP);
 
         hight = transform.position.y;
 
@@ -139,7 +166,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         else rb.velocity = new Vector2(0, rb.velocity.y);
 
         //Player Jump
-        if (rb.velocity.y < 0) Jumping = true;
+        if (rb.velocity.y < 0 && OnPlatform == false) Jumping = true;
 
         if (Input.GetAxisRaw("Jump") != 0) {
 
@@ -154,6 +181,12 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if (Input.GetAxisRaw("HorizontalShoot") != 0 || Input.GetAxisRaw("VerticalShoot") != 0)
         {
             if(OnCoolDown == false) StartCoroutine(Cooldown());
+        }
+
+
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
         }
 
 

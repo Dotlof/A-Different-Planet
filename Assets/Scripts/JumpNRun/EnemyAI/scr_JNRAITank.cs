@@ -5,9 +5,9 @@ using UnityEngine;
 public class scr_JNRAITank : MonoBehaviour
 {
     float MoveSpeed = 320F;
+    public float P1;
+    public float P2;
     public GameObject This;
-    public GameObject checkpoint1;
-    public GameObject checkpoint2;
     string Direction = "Right";
 
     // Update is called once per frame
@@ -24,12 +24,12 @@ public class scr_JNRAITank : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        if (This.transform.position.x >= checkpoint2.transform.position.x)
+        if (This.transform.position.x >= P2)
         {
             Direction = "Left";
         }
 
-        if (This.transform.position.x <= checkpoint1.transform.position.x)
+        if (This.transform.position.x <= P1)
         {
             Direction = "Right";
         }

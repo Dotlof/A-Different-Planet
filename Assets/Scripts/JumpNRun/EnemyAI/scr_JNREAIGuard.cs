@@ -5,46 +5,63 @@ using UnityEngine;
 public class scr_JNREAIGuard : MonoBehaviour
 {
     int HP = 10;
-    float MoveSpeed = 640F;
+    public float MoveSpeed = 640F;
+    public float P1;
+    public float P2;
     public GameObject This;
-    public GameObject checkpoint1;
-    public GameObject checkpoint2;
+    public GameObject Head;
     string Direction = "Right";
+    Animator animator;
 
+    IEnumerator Dmg()
+    {
+        animator.SetBool("Dmg", true);
+        yield return new WaitForSeconds(0.25f);
+        animator.SetBool("Dmg", false);
+        Debug.Log("lel");
+    }
 
     IEnumerator Death()
     {
         yield return new WaitForSeconds(0.1F);
-        Destroy(This);
+        Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.collider.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet")
         {
+            
             HP--;
+            StartCoroutine(Dmg());
         }
     }
 
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if(Direction == "Right")
         {
-            This.transform.position += new Vector3(MoveSpeed * Time.deltaTime, 0, 0); 
+            This.transform.position += new Vector3(MoveSpeed * Time.deltaTime, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
         if(Direction == "Left")
         {
             This.transform.position -= new Vector3(MoveSpeed * Time.deltaTime, 0, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        if(This.transform.position.x >= checkpoint2.transform.position.x)
+        if(This.transform.position.x >= P2)
         {
             Direction = "Left";
         }
 
-        if (This.transform.position.x <= checkpoint1.transform.position.x)
+        if (This.transform.position.x <= P1)
         {
             Direction = "Right";
         }
@@ -54,5 +71,9 @@ public class scr_JNREAIGuard : MonoBehaviour
             StartCoroutine(Death());
         }
 
+        if (Head.gameObject.GetComponent<scr_Head_Trigger>().Triggered == true)
+        {
+            Destroy(gameObject);
+        }
     }
 }

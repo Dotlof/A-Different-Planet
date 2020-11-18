@@ -10,18 +10,14 @@ public class scr_JNRSpawner : MonoBehaviour
 
     IEnumerator Cooldown()
     {
-        if (cd == false)
-        {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             if(Upsidedown == true)
             {
                 Instantiate(Fire, new Vector3(transform.position.x ,transform.position.y -98,0), transform.rotation = Quaternion.Euler(0,0,180) );
             }
             else Instantiate(Fire, new Vector3(transform.position.x, transform.position.y + 98, 0), Quaternion.identity);
-            cd = true;
             StartCoroutine(Cooldown());
-        }
-        else { yield return new WaitForSeconds(3f); cd = false; StartCoroutine(Cooldown()); }
+        
     }
 
     // Start is called before the first frame update

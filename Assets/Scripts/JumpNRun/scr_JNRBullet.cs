@@ -6,7 +6,7 @@ public class scr_JNRBullet : MonoBehaviour
 {
 
     public float Direction;
-    float speed = 6400f;
+    float speed = 3000f;
     Vector3 moveRight = new Vector3(1, 0, 0);
     Vector3 moveLeft = new Vector3(-1, 0, 0);
     Vector3 moveUp = new Vector3(0, 1, 0);
@@ -72,7 +72,7 @@ public class scr_JNRBullet : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 45);
             transform.position += moveUpRight * speed * Time.deltaTime;
         }
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
 
     }
 

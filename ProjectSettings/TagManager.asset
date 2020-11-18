@@ -18,6 +18,7 @@ TagManager:
   - var
   - Collider
   - MovingPlatform
+  - Head
   layers:
   - Default
   - TransparentFX

@@ -6,9 +6,12 @@ public class scr_Canon : MonoBehaviour
 {
     public GameObject rocket;
     Vector3 RocketStart;
+    public float range = 200;
+    float relativeRange;
 
     IEnumerator Shoot()
     {
+        rocket.GetComponent<scr_JNR_rocket>().range = relativeRange;
         Instantiate(rocket, RocketStart, transform.rotation);
         yield return new WaitForSeconds(2f);
         StartCoroutine(Shoot());
@@ -17,6 +20,7 @@ public class scr_Canon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        relativeRange = transform.position.x - range;
         RocketStart = transform.position + new Vector3(0, 40, 0);
         StartCoroutine(Shoot());
         

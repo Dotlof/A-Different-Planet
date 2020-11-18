@@ -26,13 +26,4 @@ public class scr_JNRFire : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Player")
-        {
-            collision.GetComponent<scr_JNRPlayerMovement>().HP--;
-        }
-    }
-
 }
