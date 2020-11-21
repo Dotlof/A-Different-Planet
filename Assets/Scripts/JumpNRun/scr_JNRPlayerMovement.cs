@@ -13,6 +13,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     public float JumpSpeed = 30F;
     public int ShootDirection;
     public int HP = 3;
+    public int Items = 0;
     bool Shooting = false;
     bool Jumping = false;
     bool OnCoolDown = false;
@@ -49,6 +50,11 @@ public class scr_JNRPlayerMovement : MonoBehaviour
             HP--;
             Debug.Log("Schaden");
             StartCoroutine(getDmg());
+        }
+
+        if (collision.gameObject.tag == "Collectible")
+        {
+            Items++;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

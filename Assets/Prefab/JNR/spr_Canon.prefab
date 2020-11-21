@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2608448433923398022}
   m_Layer: 0
   m_Name: spr_Canon
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,3 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocket: {fileID: 5204143991561263546, guid: 6304972e2f03f7345bcecb590b615a6a, type: 3}
+  range: 200

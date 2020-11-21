@@ -13,7 +13,7 @@ public class scr_Canon : MonoBehaviour
     {
         rocket.GetComponent<scr_JNR_rocket>().range = relativeRange;
         Instantiate(rocket, RocketStart, transform.rotation);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         StartCoroutine(Shoot());
     }
 
