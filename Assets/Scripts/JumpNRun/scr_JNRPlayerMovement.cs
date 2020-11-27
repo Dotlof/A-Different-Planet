@@ -14,6 +14,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     public int ShootDirection;
     public int HP = 3;
     public int Items = 0;
+    int GesObj;
     bool Shooting = false;
     bool Jumping = false;
     bool OnCoolDown = false;
@@ -33,9 +34,9 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         ShootDirection = 1;
+        GesObj = GameObject.FindGameObjectsWithTag("Collectible").Length;
     }
 
-    //CamColliders
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "MovingPlatform" && Jumping)
@@ -55,6 +56,18 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Collectible")
         {
             Items++;
+            if (Items == GesObj / 3 || Items == (GesObj / 3) * 2 || Items == GesObj)
+            {
+                HP++;
+            }
+        }
+        if (collision.gameObject.tag == "1UP")
+        {
+            if (HP < 3)
+            {
+                HP++;
+            }
+            Destroy(collision.gameObject);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -310,6 +323,10 @@ public class scr_JNRPlayerMovement : MonoBehaviour
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
 
+        }
+        if (transform.position.y <= -500)
+        {
+            HP = 0;
         }
     }
 }

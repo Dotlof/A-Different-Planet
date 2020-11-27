@@ -45,8 +45,8 @@ public class scr_ItembarJNR : MonoBehaviour
 
         image.sprite = sprites[index];
 
-        Debug.Log(Prozentsatz);
-        Debug.Log(index);
+        //Debug.Log(Prozentsatz);
+        //Debug.Log(index);
         //Debug.Log((AnzahlItems / 3) * 1);
     }
 }

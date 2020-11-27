@@ -40,9 +40,21 @@ public class scr_JNRCam : MonoBehaviour
             }
             //Debug.Log("height 2");
         }
-        else if (player.gameObject.GetComponent<scr_JNRPlayerMovement>().hight >= 1100)
+        else if (player.gameObject.GetComponent<scr_JNRPlayerMovement>().hight > 1100 && player.gameObject.GetComponent<scr_JNRPlayerMovement>().hight < 2048)
         {
-            if (yDir <= 1100)
+            if (yDir < 1100)
+            {
+                yDir += Time.deltaTime * speed;
+            }
+            if (yDir > 1100)
+            {
+                yDir -= Time.deltaTime * speed;
+            }
+            //Debug.Log("height 3");
+        }
+        else if (player.gameObject.GetComponent<scr_JNRPlayerMovement>().hight >= 2048)
+        {
+            if (yDir <= 2048)
             {
                 yDir += Time.deltaTime * speed;
             }

@@ -27,11 +27,16 @@ public class scr_1UP : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite normal;
     public Sprite white;
+    public bool Timer = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spriteChange());
+        if (Timer == true)
+        {
+            StartCoroutine(spriteChange());
+        }
+
     }
 
     // Update is called once per frame
