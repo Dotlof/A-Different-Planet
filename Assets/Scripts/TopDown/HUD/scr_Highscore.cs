@@ -42,7 +42,7 @@ public class scr_Highscore : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         score = GameObject.FindGameObjectWithTag("Score");
-        if (player.gameObject.GetComponent<scr_Starship>().GameEnd == true || player.gameObject.GetComponent<scr_Starship>().GameWon == true)
+        if (player.gameObject.GetComponent<scr_JNRPlayerMovement>().GameEnd == true || player.gameObject.GetComponent<scr_JNRPlayerMovement>().GameWon == true)
         {
             if (score.gameObject.GetComponent<scr_Score>().score > highscore)
             {

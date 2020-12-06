@@ -117,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278fef9ae6d831a4b8fa7c278f872a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flyAnim: 1
+  PauseUI: {fileID: 0}
 --- !u!61 &4654795640267693578
 BoxCollider2D:
   m_ObjectHideFlags: 0

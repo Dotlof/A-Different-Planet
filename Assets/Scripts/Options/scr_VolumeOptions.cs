@@ -40,7 +40,7 @@ public class scr_VolumeOptions : MonoBehaviour
         MusicSlider.value = data.musicSlider;
         SFXSlider.value = data.sfxSlider;
 
-        Debug.Log(data.master);
+        //Debug.Log(data.master);
     }
 
     // Start is called before the first frame update

@@ -22,7 +22,7 @@ public class scr_EndScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.gameObject.GetComponent<scr_Starship>().GameEnd == true || player.gameObject.GetComponent<scr_Starship>().GameWon == true)
+        if (player.gameObject.GetComponent<scr_JNRPlayerMovement>().GameEnd == true || player.gameObject.GetComponent<scr_JNRPlayerMovement>().GameWon == true)
         {
             score = CurrentScore.gameObject.GetComponent<scr_Score>().score;
         }

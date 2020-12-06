@@ -8,6 +8,7 @@ public class scr_zahnrad : MonoBehaviour
     float XDir;
     float Yanim = 0;
     bool drehen = true;
+    public bool flyAnim = true;
     // Start is called before the first frame update
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,27 +28,30 @@ public class scr_zahnrad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (flyAnim == true && Time.timeScale == 1)
+        {
+            if (Yanim >= 0.25)
+            {
+                drehen = true;
+            }
+            else if (Yanim <= -0.25)
+            {
+                drehen = false;
+            }
 
-        if (Yanim >= 0.25)
-        {
-            drehen = true;
-        }
-        else if (Yanim <= -0.25)
-        {
-            drehen = false;
+            if (drehen == true)
+            {
+                Yanim -= Time.deltaTime * 0.5f;
+            }
+            else if (drehen == false)
+            {
+                Yanim += Time.deltaTime * 0.5f;
+            }
+            YDir = YDir + Yanim;
+            transform.position = new Vector3(XDir, YDir, 0);
+
+            //Debug.Log(flyAnim);
         }
 
-        if (drehen == true)
-        {
-            Yanim -= Time.deltaTime * 0.5f;
-        }
-        else if (drehen == false)
-        {
-            Yanim += Time.deltaTime * 0.5f;
-        }
-        YDir = YDir + Yanim;
-        transform.position = new Vector3(XDir, YDir, 0);
-
-        //Debug.Log(Yanim);
     }
 }

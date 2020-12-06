@@ -13,16 +13,20 @@ public class scr_JNREAIGuard : MonoBehaviour
     string Direction = "Right";
     Animator animator;
 
+    AudioSource audioSource;
+
     IEnumerator Dmg()
     {
+        audioSource.Play();
         animator.SetBool("Dmg", true);
         yield return new WaitForSeconds(0.25f);
         animator.SetBool("Dmg", false);
-        Debug.Log("lel");
+        //Debug.Log("lel");
     }
 
     IEnumerator Death()
     {
+        audioSource.Play();
         yield return new WaitForSeconds(0.1F);
         Destroy(gameObject);
     }
@@ -37,9 +41,19 @@ public class scr_JNREAIGuard : MonoBehaviour
         }
     }
 
+    public void LoadVolume()
+    {
+        PlayerData data = SaveSystem.LoadVolume();
+
+        audioSource.volume = data.sfx;
+
+    }
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        LoadVolume();
     }
 
     // Update is called once per frame

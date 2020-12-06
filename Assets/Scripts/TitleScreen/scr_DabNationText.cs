@@ -46,7 +46,7 @@ public class scr_DabNationText : MonoBehaviour
                 break;
         }
 
-        Debug.Log(alpha);
+        //Debug.Log(alpha);
 
     }
 }

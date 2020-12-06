@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class scr_JNRPlayerMovement : MonoBehaviour
 {
@@ -21,7 +22,19 @@ public class scr_JNRPlayerMovement : MonoBehaviour
     bool WallJumping = false;
     bool OnPlatform = false;
     bool invinceble = false;
+    public bool GamePaused = false;
+    public bool GameEnd = false;
+    public bool GameWon = false;
     float direction;
+    Vector3 Deathpos;
+    bool deathbool = false;
+    AudioSource audioSource;
+    public AudioClip Jumpin;
+    public AudioClip collectItem;
+    public AudioClip OneUP;
+    public AudioClip schoosch;
+
+    Animator animator;
 
     SpriteRenderer spriteRenderer;
 
@@ -35,6 +48,10 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         ShootDirection = 1;
         GesObj = GameObject.FindGameObjectsWithTag("Collectible").Length;
+        Time.timeScale = 1;
+        audioSource = GetComponent<AudioSource>();
+        LoadVolume();
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -56,6 +73,8 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Collectible")
         {
             Items++;
+            audioSource.clip = collectItem;
+            audioSource.Play();
             if (Items == GesObj / 3 || Items == (GesObj / 3) * 2 || Items == GesObj)
             {
                 HP++;
@@ -68,8 +87,21 @@ public class scr_JNRPlayerMovement : MonoBehaviour
                 HP++;
             }
             Destroy(collision.gameObject);
+            audioSource.clip = OneUP;
+            audioSource.Play();
+        }
+
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Rocket")
+        {
+            transform.position = collision.gameObject.transform.position;
+            spriteRenderer.enabled = false;
+            Destroy(Weapon.gameObject);
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "MovingPlatform")
@@ -92,6 +124,20 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         invinceble = false;
     }
 
+    public void LoadVolume()
+    {
+        PlayerData data = SaveSystem.LoadVolume();
+
+        audioSource.volume = data.sfx;
+
+    }
+
+    public void Continue()
+    {
+        GamePaused = false;
+        Time.timeScale = 1;
+    }
+
     //Methods for PlayerJump
     void Jump()
     {
@@ -99,6 +145,8 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         {
             Jumping = true;
             rb.velocity = new Vector2(rb.velocity.x, JumpSpeed);
+            audioSource.clip = Jumpin;
+            audioSource.Play();
         }
 
         if((rb.velocity.x != 0 && rb.velocity.y == 0) && Jumping == true)
@@ -129,6 +177,8 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         Bullet.GetComponent<scr_JNRBullet>().Direction = ShootDirection;
         Instantiate(Bullet, transform.position, transform.rotation);
         Shooting = false;
+        audioSource.clip = schoosch;
+        audioSource.Play();
     }
 
     IEnumerator Cooldown()
@@ -164,6 +214,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         //Player Movement in X Direction
         if (Input.GetAxisRaw("Horizontal") != 0 && WallJumping == false)
         {
+            animator.SetBool("walk", true);
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 if (Shooting == false) rb.velocity = new Vector2(RunningSpeed, rb.velocity.y);
@@ -175,14 +226,17 @@ public class scr_JNRPlayerMovement : MonoBehaviour
                 if (Shooting == false) rb.velocity = new Vector2(-RunningSpeed, rb.velocity.y);
                 else rb.velocity = new Vector2(-MoveSpeed, rb.velocity.y);
             }
-            
+
             //SpeedrunVersion
             //if(Shooting == true) Player.transform.position += new Vector3(Input.GetAxisRaw("Horizontal") *MoveSpeed * Time.deltaTime, 0, 0); 
             //else Player.transform.position += new Vector3(Input.GetAxisRaw("Horizontal") * RunningSpeed * Time.deltaTime, 0, 0);
 
         }
-
-        else rb.velocity = new Vector2(0, rb.velocity.y);
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            animator.SetBool("walk", false);
+        }
 
         //Player Jump
         if (rb.velocity.y < 0 && OnPlatform == false) Jumping = true;
@@ -205,121 +259,129 @@ public class scr_JNRPlayerMovement : MonoBehaviour
 
         if (HP <= 0)
         {
-            Destroy(gameObject);
+            GameEnd = true;
+            if (deathbool == false)
+            {
+                deathbool = true;
+                Deathpos = transform.position;
+            }
+            transform.position = Deathpos;
+            spriteRenderer.enabled = false;
+            Destroy(Weapon.gameObject);
         }
 
 
         //right = 1, right/down = 2, down = 3, left/down = 4, left = 5, left/top = 6, top = 7, right/top = 8 
 
-        if (direction > 0)
+        if (direction > 0 && Weapon.gameObject != null)
         {
             if ((Input.GetAxisRaw("HorizontalShoot") < 0 && Input.GetAxisRaw("VerticalShoot") > 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 6;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
                 Weapon.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
             if ((Input.GetAxisRaw("HorizontalShoot") < 0 && Input.GetAxisRaw("VerticalShoot") < 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 4;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
                 Weapon.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
             if ((Input.GetAxisRaw("HorizontalShoot") > 0 && Input.GetAxisRaw("VerticalShoot") > 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 8;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if ((Input.GetAxisRaw("HorizontalShoot") > 0 && Input.GetAxisRaw("VerticalShoot") < 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 2;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -90);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("HorizontalShoot") < 0 && Input.GetAxisRaw("VerticalShoot") == 0)
             {
                 ShootDirection = 5;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Weapon.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
             if (Input.GetAxisRaw("HorizontalShoot") > 0 && Input.GetAxisRaw("VerticalShoot") == 0)
             {
                 ShootDirection = 1;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("VerticalShoot") > 0 && Input.GetAxisRaw("HorizontalShoot") == 0)
             {
                 ShootDirection = 7;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("VerticalShoot") < 0 && Input.GetAxisRaw("HorizontalShoot") == 0)
             {
                 ShootDirection = 3;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -135);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -90);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("VerticalShoot") == 0 && Input.GetAxisRaw("HorizontalShoot") == 0)
             {
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
         }
-        if (direction < 0)
+        if (direction < 0 && Weapon.gameObject != null)
         {
             if ((Input.GetAxisRaw("HorizontalShoot") < 0 && Input.GetAxisRaw("VerticalShoot") > 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 6;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if ((Input.GetAxisRaw("HorizontalShoot") < 0 && Input.GetAxisRaw("VerticalShoot") < 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 4;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if ((Input.GetAxisRaw("HorizontalShoot") > 0 && Input.GetAxisRaw("VerticalShoot") > 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 8;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
                 Weapon.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
             if ((Input.GetAxisRaw("HorizontalShoot") > 0 && Input.GetAxisRaw("VerticalShoot") < 0) && Input.GetAxisRaw("HorizontalShoot") != 0 && Input.GetAxisRaw("VerticalShoot") != 0)
             {
                 ShootDirection = 2;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -90);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
                 Weapon.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
             if (Input.GetAxisRaw("HorizontalShoot") < 0 && Input.GetAxisRaw("VerticalShoot") == 0)
             {
                 ShootDirection = 5;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("HorizontalShoot") > 0 && Input.GetAxisRaw("VerticalShoot") == 0)
             {
                 ShootDirection = 1;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Weapon.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
             if (Input.GetAxisRaw("VerticalShoot") > 0 && Input.GetAxisRaw("HorizontalShoot") == 0)
             {
                 ShootDirection = 7;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, -90);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("VerticalShoot") < 0 && Input.GetAxisRaw("HorizontalShoot") == 0)
             {
                 ShootDirection = 3;
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 135);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
             if (Input.GetAxisRaw("VerticalShoot") == 0 && Input.GetAxisRaw("HorizontalShoot") == 0)
             {
-                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
+                Weapon.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 Weapon.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             }
 
@@ -327,6 +389,24 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if (transform.position.y <= -500)
         {
             HP = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton9) && GameEnd == false)
+        {
+            if (GamePaused == false)
+            {
+                GamePaused = true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                GamePaused = false;
+                Time.timeScale = 1;
+            }
+        }
+        if (transform.position.y >= 30000)
+        {
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }

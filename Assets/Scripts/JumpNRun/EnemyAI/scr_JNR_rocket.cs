@@ -11,6 +11,14 @@ public class scr_JNR_rocket : MonoBehaviour
 
     // Start is called before the first frame update
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            StartCoroutine(death());
+        }
+    }
+
     IEnumerator death()
     {
         boxCollider2D.enabled = false;
