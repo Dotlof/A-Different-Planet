@@ -66,7 +66,7 @@ public class scr_JNRPlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Enemy" && invinceble == false)
         {
             HP--;
-            Debug.Log("Schaden");
+            //Debug.Log("Schaden");
             StartCoroutine(getDmg());
         }
 

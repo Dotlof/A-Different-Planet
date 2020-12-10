@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class scr_JNRCam : MonoBehaviour
 {
+    public CanvasGroup canvasGroup;
     public GameObject collider1;
     public GameObject player;
     public AudioSource audioSource;
@@ -12,6 +13,8 @@ public class scr_JNRCam : MonoBehaviour
     float speed = 750;
     bool freeCam = false;
     float size = 650;
+    public int abilitys = 0;
+    
 
     public void LoadVolume()
     {
@@ -26,11 +29,14 @@ public class scr_JNRCam : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         LoadVolume();
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        scr_GameInstance.control.Ability = abilitys;
+        //Debug.Log(scr_GameInstance.control.Ability);
         if (transform.position.x == 54080)
         {
             freeCam = true;

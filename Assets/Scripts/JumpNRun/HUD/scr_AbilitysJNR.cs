@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class scr_AbilitysJNR : MonoBehaviour
 {
+    public GameObject scene;
     public Image image;
     public Sprite farbig;
     public Sprite grau;
@@ -12,6 +13,7 @@ public class scr_AbilitysJNR : MonoBehaviour
     public int icon;
     float Items;
     float AnzahlItems;
+    bool active = true;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,12 @@ public class scr_AbilitysJNR : MonoBehaviour
         if (Player.gameObject.GetComponent<scr_JNRPlayerMovement>().Items >= Items)
         {
             image.sprite = farbig;
+            if (active == true)
+            {
+                active = false;
+                scene.gameObject.GetComponent<scr_JNRCam>().abilitys++;
+            }
+            
         }
     }
 }

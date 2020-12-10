@@ -87,7 +87,7 @@ public class scr_JNRBullet : MonoBehaviour
         if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Collectible")
         {
             Destroy(gameObject);
-            Debug.Log(collision);
+            //Debug.Log(collision);
         }
     }
 }

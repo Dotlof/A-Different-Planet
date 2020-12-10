@@ -8,6 +8,7 @@ public class scr_GameInstance : MonoBehaviour
     public static scr_GameInstance control;
 
     public bool started = true;
+    public int Ability = 0;
 
 
     void Awake()

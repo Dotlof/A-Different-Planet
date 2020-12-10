@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class scr_Abilitys : MonoBehaviour
 {
-
     public GameObject player;
     public Image image;
     public Sprite one;
@@ -24,15 +23,22 @@ public class scr_Abilitys : MonoBehaviour
     {
         if (player.gameObject.GetComponent<scr_Starship>().ability == 1)
         {
-            image.sprite = one;
+
+                image.sprite = one;
+            
+
         }
         if (player.gameObject.GetComponent<scr_Starship>().ability == 2)
         {
-            image.sprite = two;
+
+                image.sprite = two;
+            
         }
         if (player.gameObject.GetComponent<scr_Starship>().ability == 3)
         {
-            image.sprite = three;
+
+                image.sprite = three;
+            
         }
     }
 }

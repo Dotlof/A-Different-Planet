@@ -15,7 +15,7 @@ public class scr_JNRDeathScreen_UI : MonoBehaviour
         if (player.gameObject.GetComponent<scr_JNRPlayerMovement>().GamePaused == true || player.gameObject.GetComponent<scr_JNRPlayerMovement>().GameEnd == true || player.gameObject.GetComponent<scr_JNRPlayerMovement>().GameWon == true)
         {
             SceneManager.LoadScene(sceneName);
-            Debug.Log("loading");
+            //Debug.Log("loading");
         }
 
     }

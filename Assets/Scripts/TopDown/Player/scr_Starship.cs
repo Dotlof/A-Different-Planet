@@ -136,6 +136,7 @@ public class scr_Starship : MonoBehaviour
 
 
     Vector3 movement;
+    public CanvasGroup canvasGroup;
     public float MovementSpeed = 2;
     public float FakeSpeed;
     public int Direction;
@@ -152,7 +153,8 @@ public class scr_Starship : MonoBehaviour
     public bool GamePaused = false;
     public bool GameWon = false;
     int Drehung;
-    public int ability = 1;
+    int unlockedAbilitys;
+    public int ability = 0;
     public float AbilityCooldown = 0;
     AudioSource audioData;
     public AudioClip Laser;
@@ -166,11 +168,17 @@ public class scr_Starship : MonoBehaviour
         audioData = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         LoadVolume();
+        canvasGroup = GetComponent<CanvasGroup>();
+        unlockedAbilitys = scr_GameInstance.control.Ability;
     }
 
 
     void Update()
     {
+        if (unlockedAbilitys == 0)
+        {
+            ability = 0;
+        }
         LaserTag = GameObject.FindWithTag("Laser");
 
         FakeSpeed = MovementSpeed / Mathf.Sqrt(2);
@@ -334,13 +342,13 @@ public class scr_Starship : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton4))
         {
-            if (ability == 3)
-            {
-                ability = 1;
-            }
-            else
+            if (ability + 1 <= unlockedAbilitys && ability != 3)
             {
                 ability++;
+            }
+            else if (unlockedAbilitys != 0)
+            {
+                ability = 1;
             }
         }
 
